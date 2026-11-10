@@ -2,7 +2,7 @@
 // Ajusta estos valores según lo que espere el backend (revísalo en http://localhost:8000/docs)
 const CONFIG = {
   API_URL: 'http://localhost:8000/api/v1/auth/login',
-  CAMPO_USUARIO: 'usuario',     // nombre del campo de usuario que espera el backend
+  CAMPO_USUARIO: 'correo',      // el backend (LoginRequest) espera 'correo'
   CAMPO_PASSWORD: 'password',   // nombre del campo de contraseña que espera el backend
   RUTAS_POR_ROL: {
     administrador: 'admin.html',
@@ -12,7 +12,7 @@ const CONFIG = {
 
 // ===== Elementos =====
 const form = document.querySelector('.login__form');
-const inputUsuario = document.getElementById('usuario');
+const inputUsuario = document.getElementById('correo');
 const inputPassword = document.getElementById('password');
 const toggle = document.getElementById('togglePassword');
 const errorBox = document.querySelector('.login__error');
@@ -70,7 +70,7 @@ form.addEventListener('submit', async (e) => {
   if (!usuario || !password) {
     if (!usuario) inputUsuario.classList.add('is-invalid');
     if (!password) inputPassword.classList.add('is-invalid');
-    mostrarError('Completa usuario y contraseña.');
+    mostrarError('Completa correo y contraseña.');
     return;
   }
 
@@ -96,7 +96,7 @@ form.addEventListener('submit', async (e) => {
       }
 
       const contenido = leerToken(token);
-      const rol = datos.rol || contenido.rol || contenido.role;
+      const rol = datos.role || contenido.role;
 
       localStorage.setItem('token', token);
       localStorage.setItem('rol', rol || '');
@@ -111,7 +111,7 @@ form.addEventListener('submit', async (e) => {
     }
 
     if (respuesta.status === 401 || respuesta.status === 400 || respuesta.status === 422) {
-      mostrarError('Usuario o contraseña incorrectos.');
+      mostrarError('Correo o contraseña incorrectos.');
     } else if (respuesta.status === 503 || respuesta.status === 504) {
       mostrarError('El servicio no está disponible. Intenta más tarde.');
     } else {
