@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Iniciar sesión | Punto y Sal</title>
+  <link rel="stylesheet" href="login.css">
+</head>
+<body>
+  <main class="login">
+    <section class="login__card">
+      <header class="login__brand">
+        <h1 class="login__title">Punto <span>y</span> Sal</h1>
+        <p class="login__subtitle">Inicia sesión para continuar</p>
+      </header>
+
+      <form class="login__form" action="#" novalidate>
+        <div class="field">
+          <label class="field__label" for="usuario">Usuario</label>
+          <input class="field__input" id="usuario" name="usuario" type="text"
+                 placeholder="Ingresa tu usuario" autocomplete="username">
+        </div>
+
+        <div class="field">
+          <label class="field__label" for="password">Contraseña</label>
+          <div class="field__wrap">
+            <input class="field__input" id="password" name="password" type="password"
+                   placeholder="Ingresa tu contraseña" autocomplete="current-password">
+            <button class="field__toggle" type="button" id="togglePassword"
+                    aria-label="Mostrar contraseña">Mostrar</button>
+          </div>
+        </div>
+
+        <p class="login__error is-hidden" role="alert">Usuario o contraseña incorrectos.</p>
+
+        <button class="btn btn--primary" type="submit">Iniciar sesión</button>
+      </form>
+
+      <footer class="login__footer">© 2026 Punto y Sal</footer>
+    </section>
+  </main>
+
+  <script src="login.js"></script>
+</body>
+</html>
