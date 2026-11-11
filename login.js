@@ -5,8 +5,8 @@ const CONFIG = {
   CAMPO_USUARIO: 'correo',      // el backend (LoginRequest) espera 'correo'
   CAMPO_PASSWORD: 'password',   // nombre del campo de contraseña que espera el backend
   RUTAS_POR_ROL: {
-    administrador: 'admin.html',
-    cliente: 'cliente.html',
+    administrador: 'usuarios.html',
+    cliente: 'reservar.html',
   },
 };
 
@@ -96,7 +96,7 @@ form.addEventListener('submit', async (e) => {
       }
 
       const contenido = leerToken(token);
-      const rol = datos.role || contenido.role;
+      const rol = datos.rol || contenido.rol;
 
       localStorage.setItem('token', token);
       localStorage.setItem('rol', rol || '');

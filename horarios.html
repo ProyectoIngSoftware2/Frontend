@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Horarios y Bloqueos | Punto y Sal</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <nav class="navbar">
+    <div class="navbar__brand">Punto y Sal</div>
+    <div class="navbar__user" id="userInfo"></div>
+    <div class="navbar__actions">
+      <button class="btn btn--danger" id="logoutBtn">Cerrar sesión</button>
+    </div>
+  </nav>
+
+  <div class="card">
+    <div class="card__header">
+      <div>
+        <h2 class="card__title">Horarios y Bloqueos</h2>
+        <p class="card__title">Solo administrador</p>
+      </div>
+    </div>
+
+    <div id="errorMsg" class="error hidden"></div>
+    <div id="successMsg" class="success hidden"></div>
+
+    <!-- Formulario crear horario -->
+    <h3 style="margin: 24px 0 12px; color: var(--text);">Configurar horario operativo</h3>
+    <form id="horarioForm" style="display: grid; grid-template-columns: 1fr 1fr 1fr 1fr auto; gap: 12px; align-items: end;">
+      <div class="field">
+        <label class="field__label" for="dia">Día de semana</label>
+        <select id="dia" class="field__input" required>
+          <option value="1">Lunes</option>
+          <option value="2">Martes</option>
+          <option value="3">Miércoles</option>
+          <option value="4">Jueves</option>
+          <option value="5">Viernes</option>
+          <option value="6">Sábado</option>
+          <option value="7">Domingo</option>
+        </select>
+      </div>
+      <div class="field">
+        <label class="field__label" for="apertura">Apertura</label>
+        <input type="time" id="apertura" class="field__input" required>
+      </div>
+      <div class="field">
+        <label class="field__label" for="cierre">Cierre</label>
+        <input type="time" id="cierre" class="field__input" required>
+      </div>
+      <div class="field">
+        <label class="field__label" for="intervalo">Intervalo (min)</label>
+        <input type="number" id="intervalo" class="field__input" value="30" min="15" max="720" required>
+      </div>
+      <button type="submit" class="btn btn--primary">Guardar horario</button>
+    </form>
+    <input type="hidden" id="editHorarioId">
+
+    <!-- Lista de horarios -->
+    <h3 style="margin: 32px 0 12px; color: var(--text);">Horarios configurados</h3>
+    <table id="horariosTable">
+      <thead>
+        <tr><th>Día</th><th>Apertura</th><th>Cierre</th><th>Intervalo</th><th>Estado</th><th>Acciones</th></tr>
+      </thead>
+      <tbody id="horariosTbody"></tbody>
+    </table>
+
+    <!-- Formulario crear bloqueo -->
+    <h3 style="margin: 32px 0 12px; color: var(--text);">Registrar bloqueo</h3>
+    <form id="bloqueoForm" style="display: grid; grid-template-columns: 1fr 1fr 1fr 1fr auto; gap: 12px; align-items: end;">
+      <div class="field">
+        <label class="field__label" for="mesaId">Mesa (opcional)</label>
+        <input type="number" id="mesaId" class="field__input" placeholder="ID mesa (vacío = general)">
+      </div>
+      <div class="field">
+        <label class="field__label" for="inicio">Inicio</label>
+        <input type="datetime-local" id="inicio" class="field__input" required>
+      </div>
+      <div class="field">
+        <label class="field__label" for="fin">Fin</label>
+        <input type="datetime-local" id="fin" class="field__input" required>
+      </div>
+      <div class="field">
+        <label class="field__label" for="motivo">Motivo</label>
+        <input type="text" id="motivo" class="field__input" placeholder="Mantenimiento, evento privado..." required>
+      </div>
+      <button type="submit" class="btn btn--primary">Crear bloqueo</button>
+    </form>
+    <input type="hidden" id="editBloqueoId">
+
+    <!-- Lista de bloqueos -->
+    <h3 style="margin: 32px 0 12px; color: var(--text);">Bloqueos activos</h3>
+    <table id="bloqueosTable">
+      <thead>
+        <tr><th>Mesa</th><th>Inicio</th><th>Fin</th><th>Motivo</th><th>Creado por</th><th>Acciones</th></tr>
+      </thead>
+      <tbody id="bloqueosTbody"></tbody>
+    </table>
+  </div>
+
+  <script src="horarios.js"></script>
+</body>
+</html>
