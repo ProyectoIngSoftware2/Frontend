@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Usuarios y Roles | Punto y Sal</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="componentes.css">
+</head>
+<body>
+  <nav class="navbar">
+    <div class="navbar__brand">Punto y Sal</div>
+    <div class="navbar__user" id="userInfo"></div>
+    <div class="navbar__actions">
+      <button class="btn btn--danger" id="logoutBtn">Cerrar sesión</button>
+    </div>
+  </nav>
+
+  <div class="card">
+    <div class="card__header">
+      <div>
+        <h2 class="card__title">Gestión de Usuarios y Roles</h2>
+        <p class="card__subtitle">Solo administrador</p>
+      </div>
+    </div>
+
+    <div id="errorMsg" class="error hidden" role="alert"></div>
+    <div id="successMsg" class="success hidden" role="status"></div>
+
+    <!-- Formulario crear/editar usuario -->
+    <h3 class="section-title" id="formTitle">Nuevo usuario</h3>
+    <form id="usuarioForm" class="form-grid" novalidate>
+      <div class="field">
+        <label class="field__label" for="correo">Correo</label>
+        <input type="email" id="correo" class="field__input" placeholder="correo@ejemplo.com" maxlength="254" required>
+      </div>
+      <div class="field">
+        <label class="field__label" for="rolForm">Rol</label>
+        <select id="rolForm" class="field__input" required>
+          <option value="administrador">Administrador</option>
+          <option value="cliente">Cliente</option>
+        </select>
+      </div>
+      <div class="field" id="passwordField">
+        <label class="field__label" for="password">Contraseña</label>
+        <input type="password" id="password" class="field__input" placeholder="Entre 8 y 72 caracteres" minlength="8" maxlength="72" required>
+      </div>
+      <div class="form-actions">
+        <button type="submit" class="btn btn--primary" id="submitBtn">Crear</button>
+        <button type="button" class="btn btn--secondary hidden" id="cancelBtn">Cancelar</button>
+      </div>
+    </form>
+    <p class="form-hint" id="editHint" hidden>La contraseña no se puede cambiar desde aquí.</p>
+
+    <input type="hidden" id="editId">
+
+    <!-- Lista de usuarios -->
+    <h3 class="section-title">Usuarios registrados</h3>
+    <div class="table-wrap">
+      <table id="usuariosTable">
+        <thead>
+          <tr>
+            <th>ID</th><th>Correo</th><th>Rol</th><th>Estado</th><th>Creado</th><th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody id="usuariosTbody"></tbody>
+      </table>
+    </div>
+
+    <!-- Roles disponibles -->
+    <h3 class="section-title">Roles del sistema</h3>
+    <div class="table-wrap">
+      <table id="rolesTable">
+        <thead>
+          <tr><th>Rol</th><th>Descripción</th><th>Estado</th></tr>
+        </thead>
+        <tbody id="rolesTbody"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <script src="api.js"></script>
+  <script src="usuarios.js"></script>
+</body>
+</html>

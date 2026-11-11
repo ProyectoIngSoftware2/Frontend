@@ -1,0 +1,117 @@
+/* =====================================================================
+   componentes.css | Piezas comunes de las pantallas de administración
+   Se carga DESPUÉS de style.css. Usa sus variables cuando existen.
+   ===================================================================== */
+
+.card__subtitle {
+  margin-top: 4px;
+  font-size: 0.9rem;
+  color: var(--text-muted, #b5b5b5);
+}
+
+.section-title {
+  margin: 32px 0 12px;
+  font-size: 1.05rem;
+  color: var(--text, #ffffff);
+}
+
+/* Formularios: se acomodan solos según el ancho de pantalla */
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 12px;
+  align-items: end;
+}
+
+.form-actions {
+  display: flex;
+  gap: 8px;
+}
+.form-actions .btn { width: auto; flex: 1; white-space: nowrap; }
+
+.form-hint {
+  margin-top: 8px;
+  font-size: 0.8rem;
+  color: var(--text-muted, #b5b5b5);
+}
+
+.field__input.is-invalid {
+  border-color: var(--accent, #e53935);
+  background: #fbeaea;
+}
+
+/* Tablas: desplazamiento horizontal en pantallas pequeñas */
+.table-wrap {
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+.table-wrap table { min-width: 640px; }
+
+.table-empty {
+  text-align: center;
+  padding: 20px;
+  color: var(--text-muted, #b5b5b5);
+}
+
+.table-actions {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+/* Botón pequeño para acciones dentro de tablas */
+.btn.btn--sm {
+  width: auto;
+  padding: 6px 12px;
+  font-size: 0.8rem;
+}
+.btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.hidden,
+[hidden] { display: none !important; }
+
+@media (max-width: 600px) {
+  .form-actions { flex-direction: column; }
+}
+
+/* Menú de navegación por rol */
+.navbar__menu {
+  display: flex;
+  gap: 4px;
+  flex-wrap: wrap;
+}
+.navbar__link {
+  padding: 8px 14px;
+  border-radius: 8px;
+  color: var(--text-muted, #b5b5b5);
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.9rem;
+  transition: background 0.2s, color 0.2s;
+}
+.navbar__link:hover { color: var(--text, #ffffff); background: rgba(255, 255, 255, 0.06); }
+.navbar__link.is-active {
+  color: var(--text, #ffffff);
+  background: rgba(229, 57, 53, 0.18);
+  box-shadow: inset 0 -2px 0 var(--accent, #e53935);
+}
+
+/* Casilla de verificación dentro de formularios */
+.field.field--check {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 8px;
+  padding-bottom: 14px;
+}
+.field--check .field__label { margin: 0; }
+.field--check input { width: 18px; height: 18px; accent-color: var(--accent, #e53935); }
+
+@media (max-width: 720px) {
+  .navbar { flex-wrap: wrap; gap: 8px; }
+  .navbar__menu { order: 3; width: 100%; }
+}

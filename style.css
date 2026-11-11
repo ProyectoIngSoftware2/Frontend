@@ -1,0 +1,158 @@
+/* ===== Punto y Sal — Common styles ===== */
+:root {
+  --bg-dark: #1e1e1e;
+  --bg-mid: #3a3a3a;
+  --card: #2b2b2c;
+  --card-border: rgba(255, 255, 255, 0.08);
+  --primary: #183044;
+  --primary-hover: #2D5D7B;
+  --accent: #E9A15B;
+  --input-bg: #e7e7e7;
+  --input-text: #1e1e1e;
+  --text: #ffffff;
+  --text-muted: #b5b5b5;
+  --success: #4ade80;
+  --danger: #e53935;
+  --warning: #fbbf24;
+  --radius: 10px;
+  --font: "Segoe UI", system-ui, -apple-system, Roboto, sans-serif;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  min-height: 100vh;
+  font-family: var(--font);
+  color: var(--text);
+  background: linear-gradient(135deg, var(--bg-dark) 0%, var(--bg-mid) 100%);
+}
+
+a { color: var(--accent); text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+.btn {
+  width: 100%;
+  padding: 12px;
+  font: inherit;
+  font-size: 0.95rem;
+  font-weight: 700;
+  border: none;
+  border-radius: var(--radius);
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.btn--primary { background: var(--primary); color: var(--text); }
+.btn--primary:hover { background: var(--primary-hover); }
+.btn--secondary { background: var(--bg-mid); color: var(--text); border: 1px solid var(--card-border); }
+.btn--secondary:hover { background: var(--primary); }
+.btn--danger { background: var(--danger); color: var(--text); }
+.btn--danger:hover { background: #c4221a; }
+.btn--success { background: var(--success); color: #000; }
+.btn--success:hover { background: #3fcd66; }
+.btn:disabled { opacity: 0.6; cursor: not-allowed; }
+
+.field { margin-bottom: 14px; }
+.field__label {
+  display: block;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  margin-bottom: 6px;
+}
+.field__input {
+  width: 100%;
+  padding: 11px 14px;
+  font: inherit;
+  font-size: 0.95rem;
+  color: var(--input-text);
+  background: var(--input-bg);
+  border: 2px solid transparent;
+  border-radius: var(--radius);
+  outline: none;
+}
+.field__input:focus { border-color: var(--accent); }
+.field__input.is-invalid { border-color: var(--danger); }
+
+.card {
+  max-width: 900px;
+  margin: 24px auto;
+  padding: 24px;
+  background: var(--card);
+  border: 1px solid var(--card-border);
+  border-radius: var(--radius);
+  box-shadow: 0 20px 50px rgba(0,0,0,0.4);
+}
+.card__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+.card__title { font-size: 1.5rem; font-weight: 700; color: var(--text); }
+.card__subtitle { color: var(--text-muted); font-size: 0.9rem; }
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 12px;
+  background: var(--bg-mid);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+th, td {
+  padding: 12px 14px;
+  text-align: left;
+  border-bottom: 1px solid var(--card-border);
+}
+th { background: var(--primary); color: var(--text); font-size: 0.85rem; text-transform: uppercase; }
+tr:hover { background: rgba(255,255,255,0.03); }
+
+.badge {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 700;
+}
+.badge--administrador { background: var(--accent); color: #000; }
+.badge--cliente { background: var(--primary); color: var(--text); }
+.badge--activo { background: var(--success); color: #000; }
+.badge--inactivo { background: var(--danger); color: var(--text); }
+
+.error {
+  padding: 10px 12px;
+  margin-bottom: 16px;
+  background: rgba(229, 57, 53, 0.15);
+  border-left: 3px solid var(--danger);
+  color: var(--text);
+  border-radius: var(--radius);
+  font-size: 0.9rem;
+}
+.success {
+  padding: 10px 12px;
+  margin-bottom: 16px;
+  background: rgba(74, 222, 128, 0.15);
+  border-left: 3px solid var(--success);
+  color: #000;
+  border-radius: var(--radius);
+  font-size: 0.9rem;
+}
+
+.hidden { display: none !important; }
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 24px;
+  background: var(--bg-dark);
+  border-bottom: 1px solid var(--card-border);
+}
+.navbar__brand { font-size: 1.25rem; font-weight: 700; color: var(--text); }
+.navbar__user { color: var(--text-muted); font-size: 0.9rem; }
+.navbar__actions { display: flex; gap: 12px; }
+
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+@media (max-width: 640px) { .form-row { grid-template-columns: 1fr; } }
