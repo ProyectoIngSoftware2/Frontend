@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mi perfil · Punto y Sal</title>
+  <link rel="stylesheet" href="../estilos.css" />
+  <link rel="stylesheet" href="cliente.css" />
+</head>
+<body>
+  <input type="checkbox" id="menu" class="menu-check" aria-hidden="true" tabindex="-1" />
+  <header class="topbar">
+    <div class="marca">Punto y <span>Sal</span></div>
+    <label for="menu" class="burger" aria-label="Abrir o cerrar menú">☰</label>
+    <nav aria-label="Navegación principal">
+          <a class="nav__link" href="cliente-inicio.html">Inicio</a>
+          <a class="nav__link" href="cliente-nueva-reserva.html">Nueva reserva</a>
+          <a class="nav__link" href="cliente-consultar.html">Consultar reserva</a>
+          <a class="nav__link" href="menu.html">Menú</a>
+          <a class="nav__link nav__link--activo" href="cliente-perfil.html">Mi perfil</a>
+    </nav>
+    <div class="topbar__der">
+      <span class="topbar__correo">cliente@ejemplo.com</span>
+      <a class="boton boton--pequeno" href="login.html">Cerrar sesión</a>
+    </div>
+  </header>
+  <main class="contenido contenido--cliente-inicio">
+      <div class="pagina-cab">
+        <div>
+          <h1>Mi perfil</h1>
+          <p>Puedes actualizar tu nombre, teléfono, correo e identidad.</p>
+        </div>
+        
+      </div>
+      <section class="tarjeta" style="max-width: 640px;">
+        <div class="alerta alerta--exito is-hidden" role="status"><span>Tus datos se actualizaron.</span></div>
+        <form class="formulario" action="#" method="post">
+        <div class="alerta alerta--error is-hidden" role="alert"><span>Mensaje de error</span></div>
+        <div class="field">
+          <label class="field__label" for="cli-nombre">Nombre completo</label>
+          <input id="cli-nombre" name="cli-nombre" type="text" class="field__input" placeholder="" maxlength="120" />
+          
+        </div>
+        <div class="campos-fila">
+          <div class="field">
+          <label class="field__label" for="cli-tel">Teléfono</label>
+          <input id="cli-tel" name="cli-tel" type="text" class="field__input" placeholder="" maxlength="30" />
+          
+        </div>
+          <div class="field">
+          <label class="field__label" for="cli-id">Número de identidad (opcional)</label>
+          <input id="cli-id" name="cli-id" type="text" class="field__input" placeholder="" maxlength="30" />
+          
+        </div>
+        </div>
+        <div class="field">
+          <label class="field__label" for="cli-correo">Correo</label>
+          <input id="cli-correo" name="cli-correo" type="email" class="field__input" placeholder="" maxlength="254" />
+          <small class="field__help">Es también el correo con el que se inicia sesión.</small>
+        </div>
+          <div class="acciones-form"><button type="submit" class="boton boton--primario">Guardar cambios</button></div>
+        </form>
+      </section>
+  </main>
+</body>
+</html>

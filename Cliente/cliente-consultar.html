@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Consultar reserva · Punto y Sal</title>
+  <link rel="stylesheet" href="../estilos.css" />
+  <link rel="stylesheet" href="cliente.css" />
+</head>
+<body>
+  <input type="checkbox" id="menu" class="menu-check" aria-hidden="true" tabindex="-1" />
+  <header class="topbar">
+    <div class="marca">Punto y <span>Sal</span></div>
+    <label for="menu" class="burger" aria-label="Abrir o cerrar menú">☰</label>
+    <nav aria-label="Navegación principal">
+          <a class="nav__link" href="cliente-inicio.html">Inicio</a>
+          <a class="nav__link" href="cliente-nueva-reserva.html">Nueva reserva</a>
+          <a class="nav__link nav__link--activo" href="cliente-consultar.html">Consultar reserva</a>
+          <a class="nav__link" href="menu.html">Menú</a>
+          <a class="nav__link" href="cliente-perfil.html">Mi perfil</a>
+    </nav>
+    <div class="topbar__der">
+      <span class="topbar__correo">cliente@ejemplo.com</span>
+      <a class="boton boton--pequeno" href="login.html">Cerrar sesión</a>
+    </div>
+  </header>
+  <main class="contenido">
+      <div class="pagina-cab">
+        <div>
+          <h1>Consultar reserva</h1>
+          <p>Ingresa el código que recibiste al hacer tu reserva (por ejemplo RES-A1B2-C3D4).</p>
+        </div>
+        
+      </div>
+      <section class="tarjeta" style="max-width: 520px;">
+        <form class="formulario" action="cliente-detalle-reserva.html" method="get">
+          <div class="field">
+          <label class="field__label" for="codigo">Código de reserva</label>
+          <input id="codigo" name="codigo" type="text" class="field__input" placeholder="RES-XXXX-XXXX"  />
+          
+        </div>
+          <button type="submit" class="boton boton--primario">Buscar reserva</button>
+        </form>
+      </section>
+      <div style="max-width: 520px; margin-top: 16px;">
+        <div class="alerta"><span>Por ahora solo puedes consultar tus reservas por código; el sistema aún no muestra un listado de reservas anteriores.</span></div>
+      </div>
+  </main>
+</body>
+</html>

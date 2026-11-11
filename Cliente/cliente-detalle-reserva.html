@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Detalle de reserva · Punto y Sal</title>
+  <link rel="stylesheet" href="../estilos.css" />
+  <link rel="stylesheet" href="cliente.css" />
+</head>
+<body>
+  <input type="checkbox" id="menu" class="menu-check" aria-hidden="true" tabindex="-1" />
+  <header class="topbar">
+    <div class="marca">Punto y <span>Sal</span></div>
+    <label for="menu" class="burger" aria-label="Abrir o cerrar menú">☰</label>
+    <nav aria-label="Navegación principal">
+          <a class="nav__link" href="cliente-inicio.html">Inicio</a>
+          <a class="nav__link" href="cliente-nueva-reserva.html">Nueva reserva</a>
+          <a class="nav__link nav__link--activo" href="cliente-consultar.html">Consultar reserva</a>
+          <a class="nav__link" href="menu.html">Menú</a>
+          <a class="nav__link" href="cliente-perfil.html">Mi perfil</a>
+    </nav>
+    <div class="topbar__der">
+      <span class="topbar__correo">cliente@ejemplo.com</span>
+      <a class="boton boton--pequeno" href="login.html">Cerrar sesión</a>
+    </div>
+  </header>
+  <main class="contenido">
+      <div class="pagina-cab">
+        <div>
+          <h1>Reserva <span class="codigo">RES-XXXX-XXXX</span></h1>
+          <p><span class="etiqueta etiqueta--warn">Pendiente</span></p>
+        </div>
+        <div class="tabla__acciones"><a class="boton" href="cliente-consultar.html">Volver</a><a class="boton" href="#modal-modificar">Modificar</a><a class="boton boton--peligro" href="#modal-cancelar">Cancelar reserva</a></div>
+      </div>
+
+      <div class="pila">
+        <!-- Aviso de éxito (mostrar tras crear/modificar/cancelar) -->
+        <div class="alerta alerta--exito is-hidden" role="status"><span>La reserva fue cancelada.</span></div>
+
+        <section class="tarjeta">
+          <h2>Información</h2>
+          <!-- EJEMPLO DE MAQUETACIÓN: reemplazar por los datos reales del Backend -->
+          <dl class="detalle-grid">
+            
+            <div class="dato"><dt>Fecha y hora</dt><dd>dd/mm/aaaa hh:mm</dd></div>
+            <div class="dato"><dt>Duración</dt><dd>120 min</dd></div>
+            <div class="dato"><dt>Personas</dt><dd>2</dd></div>
+            <div class="dato"><dt>Mesa</dt><dd>Mesa 1 · Terraza</dd></div>
+            <div class="dato"><dt>Observaciones</dt><dd>—</dd></div>
+            <div class="dato"><dt>Creada</dt><dd>dd/mm/aaaa hh:mm</dd></div>
+            <div class="dato"><dt>Última actualización</dt><dd>dd/mm/aaaa hh:mm</dd></div>
+          </dl>
+        </section>
+
+        <section class="tarjeta">
+          <h2>Platillos anticipados</h2>
+          <div class="tabla-wrap">
+        <table class="tabla">
+          <thead><tr><th scope="col">Platillo</th><th scope="col">Cantidad</th><th scope="col">Precio unitario</th><th scope="col">Observaciones</th></tr></thead>
+          <tbody>
+          <tr><td data-label="Platillo">Nombre del platillo</td><td data-label="Cantidad">1</td><td data-label="Precio unitario">L 0.00</td><td data-label="Observaciones">—</td></tr>
+          </tbody>
+        </table>
+      </div>
+          <p style="margin-top: 12px; text-align: right; font-weight: 700;">Total: L 0.00</p>
+          <!-- Sin platillos: <div class="estado">Esta reserva no incluye platillos.</div> -->
+        </section>
+
+        <section class="tarjeta">
+          <h2>Historial de estados</h2>
+          <div class="tabla-wrap">
+        <table class="tabla">
+          <thead><tr><th scope="col">Fecha</th><th scope="col">De</th><th scope="col">A</th><th scope="col">Comentario</th></tr></thead>
+          <tbody>
+          <tr><td data-label="Fecha">dd/mm/aaaa hh:mm</td><td data-label="De">—</td><td data-label="A"><span class="etiqueta etiqueta--warn">Pendiente</span></td><td data-label="Comentario">—</td></tr>
+          </tbody>
+        </table>
+      </div>
+        </section>
+      </div>
+  </main>
+
+  <div class="modal-fondo" id="modal-modificar">
+    <div class="modal" role="dialog" aria-modal="true" aria-label="Modificar reserva">
+      <header class="modal__cab"><h2>Modificar reserva</h2><a class="modal__x" href="#cerrar" aria-label="Cerrar">×</a></header>
+      <div class="modal__cuerpo">
+        <form class="formulario" action="#" method="post">
+        <div class="campos-fila">
+          <div class="field">
+          <label class="field__label" for="ed-fecha">Fecha y hora</label>
+          <input id="ed-fecha" name="ed-fecha" type="datetime-local" class="field__input" placeholder=""  />
+          
+        </div>
+          <div class="field">
+          <label class="field__label" for="ed-personas">Personas</label>
+          <input id="ed-personas" name="ed-personas" type="number" class="field__input" placeholder="" min="1" value="2" />
+          
+        </div>
+        </div>
+        <div class="campos-fila">
+          <div class="field">
+          <label class="field__label" for="ed-duracion">Duración (minutos)</label>
+          <input id="ed-duracion" name="ed-duracion" type="number" class="field__input" placeholder="" min="15" max="720" value="120" />
+          
+        </div>
+          
+        </div>
+        <div class="field">
+          <label class="field__label" for="ed-obs">Observaciones</label>
+          <textarea id="ed-obs" name="ed-obs" class="field__input" maxlength="1000"></textarea>
+          
+        </div>
+        <div class="acciones-form">
+          <a class="boton" href="#cerrar">Cancelar</a>
+          <button type="submit" class="boton boton--primario">Guardar cambios</button>
+        </div>
+      </form>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal-fondo" id="modal-cancelar">
+    <div class="modal" role="dialog" aria-modal="true" aria-label="Cancelar reserva">
+      <header class="modal__cab"><h2>Cancelar reserva</h2><a class="modal__x" href="#cerrar" aria-label="Cerrar">×</a></header>
+      <div class="modal__cuerpo">
+        <p style="color: var(--text-muted);">¿Seguro que quieres cancelar la reserva RES-XXXX-XXXX? Esta acción no se puede deshacer.</p>
+        <form action="#" method="post">
+        <div class="acciones-form">
+          <a class="boton" href="#cerrar">Volver</a>
+          <button type="submit" class="boton boton--peligro">Sí, cancelar</button>
+        </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

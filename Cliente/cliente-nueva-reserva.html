@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Nueva reserva · Punto y Sal</title>
+  <link rel="stylesheet" href="../estilos.css" />
+  <link rel="stylesheet" href="cliente.css" />
+</head>
+<body>
+  <input type="checkbox" id="menu" class="menu-check" aria-hidden="true" tabindex="-1" />
+  <header class="topbar">
+    <div class="marca">Punto y <span>Sal</span></div>
+    <label for="menu" class="burger" aria-label="Abrir o cerrar menú">☰</label>
+    <nav aria-label="Navegación principal">
+          <a class="nav__link" href="cliente-inicio.html">Inicio</a>
+          <a class="nav__link nav__link--activo" href="cliente-nueva-reserva.html">Nueva reserva</a>
+          <a class="nav__link" href="cliente-consultar.html">Consultar reserva</a>
+          <a class="nav__link" href="menu.html">Menú</a>
+          <a class="nav__link" href="cliente-perfil.html">Mi perfil</a>
+    </nav>
+    <div class="topbar__der">
+      <span class="topbar__correo">cliente@ejemplo.com</span>
+      <a class="boton boton--pequeno" href="login.html">Cerrar sesión</a>
+    </div>
+  </header>
+  <main class="contenido">
+      <div class="pagina-cab">
+        <div>
+          <h1>Nueva reserva</h1>
+          <p>Tu solicitud queda en estado “Pendiente” hasta que el restaurante la atienda.</p>
+        </div>
+        
+      </div>
+      <section class="tarjeta" style="max-width: 720px;">
+        <form class="formulario" action="cliente-detalle-reserva.html" method="post">
+        <!-- Mensaje de error general (mostrar cuando el Backend rechace la solicitud) -->
+        <div class="alerta alerta--error is-hidden" role="alert"><span>Mensaje de error</span></div>
+        <div class="campos-fila">
+          <div class="field">
+          <label class="field__label" for="res-fecha">Fecha y hora</label>
+          <input id="res-fecha" name="res-fecha" type="datetime-local" class="field__input" placeholder=""  />
+          
+        </div>
+          <div class="field">
+          <label class="field__label" for="res-personas">Cantidad de personas</label>
+          <input id="res-personas" name="res-personas" type="number" class="field__input" placeholder="" min="1" value="2" />
+          
+        </div>
+        </div>
+        <div class="campos-fila">
+          <div class="field">
+          <label class="field__label" for="res-duracion">Duración (minutos)</label>
+          <input id="res-duracion" name="res-duracion" type="number" class="field__input" placeholder="" min="15" max="720" value="120" />
+          <small class="field__help">Entre 15 y 720.</small>
+        </div>
+          <div class="field">
+          <label class="field__label" for="res-mesa">Mesa (opcional)</label>
+          <select id="res-mesa" name="res-mesa" class="field__input"><option value="">Sin mesa por ahora</option><option value="1">Mesa 1 · Terraza · capacidad 4</option></select>
+          <small class="field__help">El Backend valida la disponibilidad al registrar la reserva.</small>
+        </div>
+        </div>
+        <div class="field">
+          <label class="field__label" for="res-obs">Observaciones (opcional)</label>
+          <textarea id="res-obs" name="res-obs" class="field__input" maxlength="1000"></textarea>
+          
+        </div>
+        <div class="field">
+          <span class="field__label">Platillos anticipados (opcional)</span>
+          <div class="lista-platillos">
+            <!-- EJEMPLO DE MAQUETACIÓN: reemplazar por los datos reales del Backend -->
+            <div class="linea-platillo">
+              <label for="pl-1">Nombre del platillo<small>L 0.00</small></label>
+              <input id="pl-1" name="pl-1" type="number" min="0" value="0" class="field__input" aria-label="Cantidad de Nombre del platillo" />
+            </div>
+            <div class="linea-platillo">
+              <label for="pl-2">Otro platillo<small>L 0.00</small></label>
+              <input id="pl-2" name="pl-2" type="number" min="0" value="0" class="field__input" aria-label="Cantidad de Otro platillo" />
+            </div>
+          </div>
+        </div>
+        <div class="acciones-form">
+          <a class="boton" href="cliente-inicio.html">Cancelar</a>
+          <button type="submit" class="boton boton--primario">Solicitar reserva</button>
+        </div>
+      </form>
+      </section>
+  </main>
+</body>
+</html>

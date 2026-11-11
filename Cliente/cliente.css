@@ -1,0 +1,473 @@
+
+/* ==== CONTENEDOR PRINCIPAL=== */
+
+.contenido {
+    width: 100%;
+    max-width: 1600px;
+    margin: 0 auto;
+    padding: 55px 64px 70px;
+}
+
+
+/* ===ENCABEZADOS==== */
+
+.pagina-cab {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    flex-wrap: wrap;
+    margin-bottom: 38px;
+}
+
+.pagina-cab h1 {
+    font-size: 2.3rem;
+    font-weight: 700;
+}
+
+.pagina-cab p {
+    margin-top: 8px;
+    font-size: 1.05rem;
+    line-height: 1.7;
+    color: var(--text-muted);
+}
+
+
+/* ===BARRA DE NAVEGACION=== */
+
+.topbar {
+    position: sticky;
+    top: 0;
+    z-index: 20;
+
+    min-height: 82px;
+    padding: 16px 36px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+
+    background: rgba(24, 24, 24, 0.95);
+    border-bottom: 1px solid var(--line);
+    border-top: 3px solid var(--accent);
+}
+
+.topbar > .marca {
+    font-size: 1.65rem;
+    white-space: nowrap;
+}
+
+.topbar nav {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.topbar .nav__link {
+    padding: 13px 16px;
+    font-size: 1rem;
+    font-weight: 600;
+}
+
+.topbar__der {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    font-size: 0.85rem;
+}
+
+.topbar__correo {
+    max-width: 220px;
+}
+
+
+/* ===TARJETAS=== */
+
+.tarjeta {
+    padding: 30px;
+    border-radius: 14px;
+}
+
+.tarjeta h2 {
+    font-size: 1.2rem;
+    margin-bottom: 20px;
+}
+
+.contenido > section.tarjeta {
+    width: 100%;
+    max-width: 850px !important;
+}
+
+.contenido > div[style] {
+    max-width: 850px !important;
+}
+
+
+/* ===FORMULARIOS=== */
+
+.formulario {
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+}
+
+.field {
+    display: flex;
+    flex-direction: column;
+    gap: 9px;
+}
+
+.field__label {
+    font-size: 0.95rem;
+    font-weight: 600;
+}
+
+.field__input {
+    width: 100%;
+    min-height: 48px;
+    padding: 14px 16px;
+    font-size: 1rem;
+}
+
+.field__help {
+    font-size: 0.82rem;
+}
+
+.campos-fila {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 22px;
+}
+
+textarea.field__input {
+    min-height: 120px;
+}
+
+.acciones-form {
+    display: flex;
+    justify-content: flex-end;
+    flex-wrap: wrap;
+    gap: 14px;
+    margin-top: 10px;
+}
+
+.acciones-form .boton {
+    min-height: 46px;
+    padding: 12px 22px;
+    font-size: 0.95rem;
+}
+
+
+/* ===INICIO - ACCESOS PRINCIPALES=== */
+
+.grid-platillos {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 28px;
+}
+
+.platillo {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+
+    min-height: 240px;
+    padding: 30px;
+
+    background: var(--card);
+    border: 1px solid var(--card-border);
+    border-left: 4px solid var(--primary);
+    border-radius: 12px;
+}
+
+.platillo h3 {
+    font-size: 1.35rem;
+}
+
+.platillo p {
+    flex: 1;
+    font-size: 1rem;
+    line-height: 1.7;
+    color: var(--text-muted);
+}
+
+.platillo .boton {
+    min-height: 46px;
+    padding: 12px 18px;
+    font-size: 1rem;
+}
+
+
+/* ===DETALLE DE RESERVA=== */
+
+.pila {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.detalle-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 28px;
+}
+
+.dato {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+}
+
+.dato dt {
+    font-size: 0.8rem;
+}
+
+.dato dd {
+    font-size: 1rem;
+    line-height: 1.6;
+    word-break: break-word;
+}
+
+.tabla-wrap {
+    width: 100%;
+    overflow-x: auto;
+}
+
+.tabla {
+    width: 100%;
+    font-size: 0.95rem;
+}
+
+.tabla th {
+    padding: 15px;
+}
+
+.tabla td {
+    padding: 16px;
+}
+
+.tabla__acciones {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: flex-end;
+}
+
+
+/* ===PLATILLOS ANTICIPADOS=== */
+
+.lista-platillos {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.linea-platillo {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 110px;
+    align-items: center;
+    gap: 16px;
+    padding: 14px 0;
+}
+
+.linea-platillo label {
+    font-size: 1rem;
+}
+
+.linea-platillo small {
+    display: block;
+    margin-top: 5px;
+    color: var(--text-muted);
+}
+
+.linea-platillo input {
+    min-height: 44px;
+    padding: 10px 12px;
+}
+
+
+/* === MODALES=== */
+
+.modal {
+    width: 100%;
+    max-width: 650px;
+}
+
+.modal__cab {
+    padding: 24px 28px 0;
+}
+
+.modal__cab h2 {
+    font-size: 1.3rem;
+}
+
+.modal__cuerpo {
+    padding: 22px 28px 28px;
+    gap: 20px;
+}
+
+.modal__pie {
+    padding: 0 28px 24px;
+}
+
+
+/* ===BOTONES=== */
+
+.boton {
+    min-height: 42px;
+    font-size: 0.95rem;
+}
+
+.boton--pequeno {
+    min-height: auto;
+    padding: 7px 12px;
+    font-size: 0.85rem;
+}
+
+
+/* ===PANTALLAS MEDIANAS=== */
+
+@media (max-width: 1100px) {
+
+    .contenido {
+        padding: 42px 32px 55px;
+    }
+
+    .grid-platillos {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .topbar {
+        padding: 14px 24px;
+    }
+
+    .topbar nav {
+        gap: 4px;
+    }
+
+    .topbar .nav__link {
+        padding: 11px 12px;
+    }
+
+    .detalle-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+
+/* === TABLETS Y MOVILES=== */
+
+@media (max-width: 899px) {
+
+    .contenido {
+        padding: 32px 24px 45px;
+    }
+
+    .topbar {
+        padding: 12px 20px;
+    }
+
+    .topbar nav {
+        gap: 4px;
+    }
+
+    .topbar .nav__link {
+        padding: 11px 12px;
+    }
+}
+
+
+/* === MOVILES PEQUEÑOS=== */
+
+@media (max-width: 600px) {
+
+    .contenido {
+        padding: 26px 16px 38px;
+    }
+
+    .pagina-cab {
+        margin-bottom: 26px;
+    }
+
+    .pagina-cab h1 {
+        font-size: 1.75rem;
+    }
+
+    .pagina-cab p {
+        font-size: 0.95rem;
+    }
+
+    .grid-platillos {
+        grid-template-columns: 1fr;
+        gap: 18px;
+    }
+
+    .platillo {
+        min-height: 190px;
+        padding: 24px;
+    }
+
+    .campos-fila {
+        grid-template-columns: 1fr;
+    }
+
+    .detalle-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+
+    .tarjeta {
+        padding: 22px;
+    }
+
+    .contenido > section.tarjeta {
+        max-width: 100% !important;
+    }
+
+    .contenido > div[style] {
+        max-width: 100% !important;
+    }
+
+    .tabla__acciones {
+        justify-content: flex-start;
+    }
+
+    .linea-platillo {
+        grid-template-columns: minmax(0, 1fr) 85px;
+    }
+
+    .acciones-form {
+        flex-direction: column-reverse;
+    }
+
+    .acciones-form .boton {
+        width: 100%;
+    }
+
+    .modal__cab {
+        padding: 20px 20px 0;
+    }
+
+    .modal__cuerpo {
+        padding: 18px 20px 22px;
+    }
+
+    .modal__pie {
+        padding: 0 20px 20px;
+    }
+}
+
+
+/* Tarjetas de perfil, consulta y nueva reserva */
+.contenido > section.tarjeta {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Aviso debajo del formulario de consulta */
+.contenido > div[style] {
+    margin-left: auto;
+    margin-right: auto;
+}
