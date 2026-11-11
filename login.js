@@ -1,5 +1,5 @@
 // ===== Configuración =====
-// Ajusta estos valores según lo que espere el backend (revísalo en http://localhost:8000/docs)
+// Ajusta estos valores según lo que espere el backend (revísalo en http://localhost:8004/docs)
 const CONFIG = {
   API_URL: 'http://localhost:8004/api/v1/auth/login',
   CAMPO_USUARIO: 'correo',      // el backend (LoginRequest) espera 'correo'
@@ -96,7 +96,7 @@ form.addEventListener('submit', async (e) => {
       }
 
       const contenido = leerToken(token);
-      const rol = datos.rol || contenido.rol;
+      const rol = datos.role || contenido.role;
 
       localStorage.setItem('token', token);
       localStorage.setItem('rol', rol || '');
