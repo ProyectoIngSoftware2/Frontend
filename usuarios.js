@@ -1,144 +1,238 @@
-// ===== Usuarios y Roles — Punto y Sal =====
-API.requerirRol('administrador');
-const API_BASE = 'http://localhost:8000';
+// ===== Usuarios y Roles | Punto y Sal =====
+// Contrato (clientes-service, vía Gateway):
+//   GET    /api/v1/usuarios              -> id_usuario, correo, rol, activo, fecha_creacion
+//   POST   /api/v1/usuarios              <- { correo, password, rol }
+//   PUT    /api/v1/usuarios/{id}         <- { correo?, rol?, activo? }   (sin password)
+//   DELETE /api/v1/usuarios/{id}         -> desactiva (no puede desactivarse a sí mismo)
+//   GET    /api/v1/roles                 -> roles disponibles (administrador, cliente)
 
-const token = localStorage.getItem('token');
-const rol = localStorage.getItem('rol');
+const ROLES_OFICIALES = ['administrador', 'cliente'];
 
-if (!token) {
-  window.location.href = 'login.html';
+const el = {
+  form: document.getElementById('usuarioForm'),
+  formTitle: document.getElementById('formTitle'),
+  correo: document.getElementById('correo'),
+  rol: document.getElementById('rolForm'),
+  password: document.getElementById('password'),
+  passwordField: document.getElementById('passwordField'),
+  editId: document.getElementById('editId'),
+  editHint: document.getElementById('editHint'),
+  submit: document.getElementById('submitBtn'),
+  cancel: document.getElementById('cancelBtn'),
+  tbody: document.getElementById('usuariosTbody'),
+  rolesTbody: document.getElementById('rolesTbody'),
+};
+
+function iniciar() {
+  API.iniciarNavbar();
+  document.getElementById('usuarioForm').addEventListener('submit', guardarUsuario);
+  document.getElementById('cancelBtn').addEventListener('click', salirDeEdicion);
+  cargarRoles();
+  cargarUsuarios();
 }
 
-if (rol !== 'administrador') {
-  document.body.innerHTML = '<div style="padding:40px; text-align:center; color:#fff;"><h2>Acceso denegado</h2><p>Solo administradores pueden acceder a esta sección.</p><a href="login.html" style="color:#E9A15B;">Volver al login</a></div>';
-}
+// ----- Usuarios -------------------------------------------------------
 
-async function apiRequest(path, options = {}) {
-  const headers = {
-    'Content-Type': 'application/json',
-    'Authorization': `Bearer ${token}`,
-    ...options.headers,
-  };
-  const response = await fetch(`${API_BASE}${path}`, { ...options, headers });
-  if (response.status === 401) {
-    localStorage.removeItem('token');
-    localStorage.removeItem('rol');
-    window.location.href = 'login.html';
+async function cargarUsuarios() {
+  try {
+    const usuarios = API.lista(await API.get('/api/v1/usuarios'));
+    pintarUsuarios(usuarios);
+  } catch (error) {
+    API.mostrarMensaje(`No se pudieron cargar los usuarios. ${error.message}`);
   }
-  return response;
 }
 
-async function showError(msg) {
-  const el = document.getElementById('errorMsg');
-  el.textContent = msg;
-  el.classList.remove('hidden');
-  setTimeout(() => el.classList.add('hidden'), 5000);
-}
+function pintarUsuarios(usuarios) {
+  el.tbody.replaceChildren();
 
-async function showSuccess(msg) {
-  const el = document.getElementById('successMsg');
-  el.textContent = msg;
-  el.classList.remove('hidden');
-  setTimeout(() => el.classList.add('hidden'), 3000);
-}
-
-async function loadUsuarios() {
-  const res = await apiRequest('/api/v1/usuarios');
-  const data = await res.json();
-  const tbody = document.getElementById('usuariosTbody');
-  tbody.innerHTML = '';
-  for (const u of data.data || []) {
+  if (!usuarios.length) {
     const tr = document.createElement('tr');
-    tr.innerHTML = `
-      <td>${u.id_usuario}</td>
-      <td>${u.correo}</td>
-      <td><span class="badge badge--${u.rol}">${u.rol}</span></td>
-      <td><span class="badge badge--${u.activo ? 'activo' : 'inactivo'}">${u.activo ? 'Activo' : 'Inactivo'}</span></td>
-      <td>${new Date(u.fecha_creacion).toLocaleString()}</td>
-      <td>
-        ${u.activo
-          ? `<button class="btn btn--danger" style="width:auto; padding:6px 12px; font-size:0.8rem;" onclick="deactivateUsuario(${u.id_usuario})">Desactivar</button>`
-          : `<button class="btn btn--success" style="width:auto; padding:6px 12px; font-size:0.8rem;" onclick="reactivarUsuario(${u.id_usuario})">Reactivar</button>`}
-      </td>
-    `;
-    tbody.appendChild(tr);
+    const td = API.celda('No hay usuarios registrados.');
+    td.colSpan = 6;
+    td.className = 'table-empty';
+    tr.appendChild(td);
+    el.tbody.appendChild(tr);
+    return;
+  }
+
+  const yo = API.usuarioActual().id_usuario;
+
+  for (const u of usuarios) {
+    const tr = document.createElement('tr');
+    tr.appendChild(API.celda(u.id_usuario));
+    tr.appendChild(API.celda(u.correo));
+
+    const tdRol = document.createElement('td');
+    tdRol.appendChild(API.badge(u.rol, ROLES_OFICIALES.includes(u.rol) ? u.rol : 'inactivo'));
+    tr.appendChild(tdRol);
+
+    const tdEstado = document.createElement('td');
+    tdEstado.appendChild(API.badge(u.activo ? 'Activo' : 'Inactivo', u.activo ? 'activo' : 'inactivo'));
+    tr.appendChild(tdEstado);
+
+    tr.appendChild(API.celda(API.formatearFecha(u.fecha_creacion)));
+
+    const tdAcciones = document.createElement('td');
+    tdAcciones.className = 'table-actions';
+    tdAcciones.appendChild(API.boton('Editar', 'btn--secondary', () => entrarEnEdicion(u)));
+
+    const esYo = u.id_usuario === yo;
+    if (u.activo) {
+      const b = API.boton('Desactivar', 'btn--danger', () => desactivarUsuario(u));
+      if (esYo) {
+        b.disabled = true;
+        b.title = 'No puedes desactivar tu propia cuenta';
+      }
+      tdAcciones.appendChild(b);
+    } else {
+      tdAcciones.appendChild(API.boton('Reactivar', 'btn--success', () => reactivarUsuario(u)));
+    }
+    tr.appendChild(tdAcciones);
+
+    el.tbody.appendChild(tr);
   }
 }
 
-async function loadRoles() {
-  const res = await apiRequest('/api/v1/roles');
-  const data = await res.json();
-  // Roles are loaded for reference; the form has hardcoded options
-}
-
-async function deactivateUsuario(id) {
-  if (!confirm('¿Desactivar este usuario? No podrá iniciar sesión.')) return;
-  const res = await apiRequest(`/api/v1/usuarios/${id}`, { method: 'DELETE' });
-  if (res.ok) {
-    showSuccess('Usuario desactivado');
-    loadUsuarios();
-  } else {
-    const err = await res.json().catch(() => ({}));
-    showError(err.detail || 'Error al desactivar');
-  }
-}
-
-async function reactivarUsuario(id) {
-  const res = await apiRequest(`/api/v1/usuarios/${id}`, {
-    method: 'PUT',
-    body: JSON.stringify({ activo: true }),
-  });
-  if (res.ok) {
-    showSuccess('Usuario reactivado');
-    loadUsuarios();
-  } else {
-    const err = await res.json().catch(() => ({}));
-    showError(err.detail || 'Error al reactivar');
-  }
-}
-
-document.getElementById('usuarioForm').addEventListener('submit', async (e) => {
+async function guardarUsuario(e) {
   e.preventDefault();
-  const nombre = document.getElementById('nombre').value;
-  const correo = document.getElementById('correo').value;
-  const rolForm = document.getElementById('rolForm').value;
-  const password = document.getElementById('password').value;
-  const editId = document.getElementById('editId').value;
 
-  const body = { nombre_completo: nombre, correo, rol: rolForm };
-  if (password) body.password = password;
+  const editId = el.editId.value;
+  const correo = el.correo.value.trim();
+  const rol = el.rol.value;
+  const password = el.password.value;
 
-  const method = editId ? 'PUT' : 'POST';
-  const path = editId ? `/api/v1/usuarios/${editId}` : '/api/v1/usuarios';
-  const res = await apiRequest(path, { method, body: JSON.stringify(body) });
-
-  if (res.ok) {
-    showSuccess(editId ? 'Usuario actualizado' : 'Usuario creado');
-    document.getElementById('usuarioForm').reset();
-    document.getElementById('editId').value = '';
-    document.getElementById('submitBtn').textContent = 'Crear';
-    document.getElementById('cancelBtn').style.display = 'none';
-    loadUsuarios();
-  } else {
-    const err = await res.json().catch(() => ({}));
-    showError(err.detail || 'Error al guardar usuario');
+  // Validaciones (mismas reglas que el backend)
+  if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(correo)) {
+    el.correo.classList.add('is-invalid');
+    return API.mostrarMensaje('Escribe un correo válido.');
   }
-});
+  if (!ROLES_OFICIALES.includes(rol)) {
+    return API.mostrarMensaje('Selecciona un rol válido.');
+  }
+  if (!editId && (password.length < 8 || password.length > 72)) {
+    el.password.classList.add('is-invalid');
+    return API.mostrarMensaje('La contraseña debe tener entre 8 y 72 caracteres.');
+  }
 
-document.getElementById('cancelBtn').addEventListener('click', () => {
-  document.getElementById('usuarioForm').reset();
-  document.getElementById('editId').value = '';
-  document.getElementById('submitBtn').textContent = 'Crear';
-  document.getElementById('cancelBtn').style.display = 'none';
-});
+  el.submit.disabled = true;
+  try {
+    if (editId) {
+      await API.put(`/api/v1/usuarios/${editId}`, { correo, rol });
+      API.mostrarMensaje('Usuario actualizado.', 'exito');
+    } else {
+      await API.post('/api/v1/usuarios', { correo, password, rol });
+      API.mostrarMensaje('Usuario creado.', 'exito');
+    }
+    salirDeEdicion();
+    cargarUsuarios();
+  } catch (error) {
+    const texto = error.status === 409 ? 'Ya existe un usuario con ese correo.' : error.message;
+    API.mostrarMensaje(texto);
+  } finally {
+    el.submit.disabled = false;
+  }
+}
 
-document.getElementById('logoutBtn').addEventListener('click', () => {
-  localStorage.removeItem('token');
-  localStorage.removeItem('rol');
-  window.location.href = 'login.html';
-});
+async function desactivarUsuario(u) {
+  if (!confirm(`¿Desactivar a ${u.correo}? No podrá iniciar sesión.`)) return;
+  try {
+    await API.delete(`/api/v1/usuarios/${u.id_usuario}`);
+    API.mostrarMensaje('Usuario desactivado.', 'exito');
+    cargarUsuarios();
+  } catch (error) {
+    API.mostrarMensaje(error.message);
+  }
+}
 
-document.getElementById('userInfo').textContent = `Usuario (${rol})`;
+async function reactivarUsuario(u) {
+  try {
+    await API.put(`/api/v1/usuarios/${u.id_usuario}`, { activo: true });
+    API.mostrarMensaje('Usuario reactivado.', 'exito');
+    cargarUsuarios();
+  } catch (error) {
+    API.mostrarMensaje(error.message);
+  }
+}
 
-loadUsuarios();
-loadRoles();
+function entrarEnEdicion(u) {
+  el.editId.value = u.id_usuario;
+  el.correo.value = u.correo;
+  el.rol.value = u.rol;
+  el.password.value = '';
+  el.password.required = false;
+  el.passwordField.hidden = true;
+  el.editHint.hidden = false;
+  el.formTitle.textContent = `Editar usuario #${u.id_usuario}`;
+  el.submit.textContent = 'Guardar cambios';
+  el.cancel.classList.remove('hidden');
+  el.correo.focus();
+}
+
+function salirDeEdicion() {
+  el.form.reset();
+  el.editId.value = '';
+  el.password.required = true;
+  el.passwordField.hidden = false;
+  el.editHint.hidden = true;
+  el.formTitle.textContent = 'Nuevo usuario';
+  el.submit.textContent = 'Crear';
+  el.cancel.classList.add('hidden');
+  [el.correo, el.password].forEach((i) => i.classList.remove('is-invalid'));
+}
+
+// ----- Roles ----------------------------------------------------------
+
+async function cargarRoles() {
+  try {
+    const roles = API.lista(await API.get('/api/v1/roles'));
+    pintarRoles(roles);
+    llenarSelectorDeRoles(roles);
+  } catch {
+    // Si falla, el formulario conserva las dos opciones oficiales
+    pintarRoles([]);
+  }
+}
+
+function pintarRoles(roles) {
+  el.rolesTbody.replaceChildren();
+  if (!roles.length) {
+    const tr = document.createElement('tr');
+    const td = API.celda('No se pudieron cargar los roles.');
+    td.colSpan = 3;
+    td.className = 'table-empty';
+    tr.appendChild(td);
+    el.rolesTbody.appendChild(tr);
+    return;
+  }
+  for (const r of roles) {
+    const tr = document.createElement('tr');
+    tr.appendChild(API.celda(r.nombre));
+    tr.appendChild(API.celda(r.descripcion || ''));
+    const td = document.createElement('td');
+    const activo = r.activo !== false;
+    td.appendChild(API.badge(activo ? 'Activo' : 'Inactivo', activo ? 'activo' : 'inactivo'));
+    tr.appendChild(td);
+    el.rolesTbody.appendChild(tr);
+  }
+}
+
+// Solo roles oficiales y activos; nunca se inventa un tercer rol
+function llenarSelectorDeRoles(roles) {
+  const validos = roles
+    .filter((r) => r.activo !== false && ROLES_OFICIALES.includes(r.nombre))
+    .map((r) => r.nombre);
+  if (!validos.length) return;
+
+  el.rol.replaceChildren();
+  for (const nombre of validos) {
+    const opt = document.createElement('option');
+    opt.value = nombre;
+    opt.textContent = nombre.charAt(0).toUpperCase() + nombre.slice(1);
+    el.rol.appendChild(opt);
+  }
+}
+
+// ----- Arranque -------------------------------------------------------
+if (API.requerirRol('administrador')) {
+  iniciar();
+}

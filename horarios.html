@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Horarios y Bloqueos | Punto y Sal</title>
   <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="componentes.css">
 </head>
 <body>
   <nav class="navbar">
@@ -19,16 +20,16 @@
     <div class="card__header">
       <div>
         <h2 class="card__title">Horarios y Bloqueos</h2>
-        <p class="card__title">Solo administrador</p>
+        <p class="card__subtitle">Solo administrador</p>
       </div>
     </div>
 
-    <div id="errorMsg" class="error hidden"></div>
-    <div id="successMsg" class="success hidden"></div>
+    <div id="errorMsg" class="error hidden" role="alert"></div>
+    <div id="successMsg" class="success hidden" role="status"></div>
 
-    <!-- Formulario crear horario -->
-    <h3 style="margin: 24px 0 12px; color: var(--text);">Configurar horario operativo</h3>
-    <form id="horarioForm" style="display: grid; grid-template-columns: 1fr 1fr 1fr 1fr auto; gap: 12px; align-items: end;">
+    <!-- ===== Horarios ===== -->
+    <h3 class="section-title" id="horarioFormTitle">Configurar horario operativo</h3>
+    <form id="horarioForm" class="form-grid" novalidate>
       <div class="field">
         <label class="field__label" for="dia">Día de semana</label>
         <select id="dia" class="field__input" required>
@@ -51,27 +52,33 @@
       </div>
       <div class="field">
         <label class="field__label" for="intervalo">Intervalo (min)</label>
-        <input type="number" id="intervalo" class="field__input" value="30" min="15" max="720" required>
+        <input type="number" id="intervalo" class="field__input" value="30" min="1" max="1440" step="1" required>
       </div>
-      <button type="submit" class="btn btn--primary">Guardar horario</button>
+      <div class="form-actions">
+        <button type="submit" class="btn btn--primary" id="horarioSubmit">Guardar horario</button>
+        <button type="button" class="btn btn--secondary hidden" id="horarioCancel">Cancelar</button>
+      </div>
     </form>
     <input type="hidden" id="editHorarioId">
 
-    <!-- Lista de horarios -->
-    <h3 style="margin: 32px 0 12px; color: var(--text);">Horarios configurados</h3>
-    <table id="horariosTable">
-      <thead>
-        <tr><th>Día</th><th>Apertura</th><th>Cierre</th><th>Intervalo</th><th>Estado</th><th>Acciones</th></tr>
-      </thead>
-      <tbody id="horariosTbody"></tbody>
-    </table>
+    <h3 class="section-title">Horarios configurados</h3>
+    <div class="table-wrap">
+      <table id="horariosTable">
+        <thead>
+          <tr><th>Día</th><th>Apertura</th><th>Cierre</th><th>Intervalo</th><th>Estado</th><th>Acciones</th></tr>
+        </thead>
+        <tbody id="horariosTbody"></tbody>
+      </table>
+    </div>
 
-    <!-- Formulario crear bloqueo -->
-    <h3 style="margin: 32px 0 12px; color: var(--text);">Registrar bloqueo</h3>
-    <form id="bloqueoForm" style="display: grid; grid-template-columns: 1fr 1fr 1fr 1fr auto; gap: 12px; align-items: end;">
+    <!-- ===== Bloqueos ===== -->
+    <h3 class="section-title" id="bloqueoFormTitle">Registrar bloqueo</h3>
+    <form id="bloqueoForm" class="form-grid" novalidate>
       <div class="field">
-        <label class="field__label" for="mesaId">Mesa (opcional)</label>
-        <input type="number" id="mesaId" class="field__input" placeholder="ID mesa (vacío = general)">
+        <label class="field__label" for="mesaId">Mesa</label>
+        <select id="mesaId" class="field__input">
+          <option value="">Todas las mesas (general)</option>
+        </select>
       </div>
       <div class="field">
         <label class="field__label" for="inicio">Inicio</label>
@@ -83,22 +90,27 @@
       </div>
       <div class="field">
         <label class="field__label" for="motivo">Motivo</label>
-        <input type="text" id="motivo" class="field__input" placeholder="Mantenimiento, evento privado..." required>
+        <input type="text" id="motivo" class="field__input" placeholder="Mantenimiento, evento privado..." maxlength="180" required>
       </div>
-      <button type="submit" class="btn btn--primary">Crear bloqueo</button>
+      <div class="form-actions">
+        <button type="submit" class="btn btn--primary" id="bloqueoSubmit">Crear bloqueo</button>
+        <button type="button" class="btn btn--secondary hidden" id="bloqueoCancel">Cancelar</button>
+      </div>
     </form>
     <input type="hidden" id="editBloqueoId">
 
-    <!-- Lista de bloqueos -->
-    <h3 style="margin: 32px 0 12px; color: var(--text);">Bloqueos activos</h3>
-    <table id="bloqueosTable">
-      <thead>
-        <tr><th>Mesa</th><th>Inicio</th><th>Fin</th><th>Motivo</th><th>Creado por</th><th>Acciones</th></tr>
-      </thead>
-      <tbody id="bloqueosTbody"></tbody>
-    </table>
+    <h3 class="section-title">Bloqueos registrados</h3>
+    <div class="table-wrap">
+      <table id="bloqueosTable">
+        <thead>
+          <tr><th>Mesa</th><th>Inicio</th><th>Fin</th><th>Motivo</th><th>Acciones</th></tr>
+        </thead>
+        <tbody id="bloqueosTbody"></tbody>
+      </table>
+    </div>
   </div>
 
+  <script src="api.js"></script>
   <script src="horarios.js"></script>
 </body>
 </html>

@@ -1,0 +1,79 @@
+/* =====================================================================
+   componentes.css | Piezas comunes de las pantallas de administración
+   Se carga DESPUÉS de style.css. Usa sus variables cuando existen.
+   ===================================================================== */
+
+.card__subtitle {
+  margin-top: 4px;
+  font-size: 0.9rem;
+  color: var(--text-muted, #b5b5b5);
+}
+
+.section-title {
+  margin: 32px 0 12px;
+  font-size: 1.05rem;
+  color: var(--text, #ffffff);
+}
+
+/* Formularios: se acomodan solos según el ancho de pantalla */
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 12px;
+  align-items: end;
+}
+
+.form-actions {
+  display: flex;
+  gap: 8px;
+}
+.form-actions .btn { width: auto; flex: 1; white-space: nowrap; }
+
+.form-hint {
+  margin-top: 8px;
+  font-size: 0.8rem;
+  color: var(--text-muted, #b5b5b5);
+}
+
+.field__input.is-invalid {
+  border-color: var(--accent, #e53935);
+  background: #fbeaea;
+}
+
+/* Tablas: desplazamiento horizontal en pantallas pequeñas */
+.table-wrap {
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+.table-wrap table { min-width: 640px; }
+
+.table-empty {
+  text-align: center;
+  padding: 20px;
+  color: var(--text-muted, #b5b5b5);
+}
+
+.table-actions {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+/* Botón pequeño para acciones dentro de tablas */
+.btn.btn--sm {
+  width: auto;
+  padding: 6px 12px;
+  font-size: 0.8rem;
+}
+.btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.hidden,
+[hidden] { display: none !important; }
+
+@media (max-width: 600px) {
+  .form-actions { flex-direction: column; }
+}
