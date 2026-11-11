@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Platillos · Punto y Sal</title>
+  <link rel="stylesheet" href="../estilos.css" />
+</head>
+<body>
+  <input type="checkbox" id="menu" class="menu-check" aria-hidden="true" tabindex="-1" />
+  <div class="admin">
+    <aside class="sidebar">
+      <div class="marca">Punto y <span>Sal</span><small>Administración</small></div>
+      <nav aria-label="Navegación principal">
+          <a class="nav__link" href="admin-panel.html">Panel</a>
+          <a class="nav__link" href="admin-reservas.html">Reservas</a>
+          <a class="nav__link" href="admin-clientes.html">Clientes</a>
+          <a class="nav__link" href="admin-mesas.html">Mesas</a>
+          <a class="nav__link nav__link--activo" href="admin-platillos.html">Platillos</a>
+      </nav>
+      <div class="sidebar__pie">
+        <span>admin@ejemplo.com</span>
+        <a class="boton boton--pequeno" href="login.html">Cerrar sesión</a>
+      </div>
+    </aside>
+    <label for="menu" class="sidebar-fondo" aria-hidden="true"></label>
+    <div>
+      <header class="admin__top">
+        <label for="menu" class="burger" aria-label="Abrir menú">☰</label>
+        <div class="marca">Punto y <span>Sal</span></div>
+      </header>
+      <main class="contenido">
+      <div class="pagina-cab">
+        <div>
+          <h1>Platillos</h1>
+          <p>Administra el menú y su disponibilidad.</p>
+        </div>
+        <a class="boton boton--primario" href="#modal-platillo">Nuevo platillo</a>
+      </div>
+      <section class="tarjeta">
+        <div class="alerta alerta--exito is-hidden" role="status" style="margin-bottom: 14px;"><span>El platillo se registró.</span></div>
+        <form class="filtros" action="#" method="get">
+          <div class="field">
+          <label class="field__label" for="pf-q">Buscar</label>
+          <input id="pf-q" name="pf-q" type="search" class="field__input" placeholder="Nombre o descripción"  />
+          
+        </div>
+          <div class="field">
+          <label class="field__label" for="pf-disp">Disponibilidad</label>
+          <select id="pf-disp" name="pf-disp" class="field__input"><option value="">Todos</option><option value="si">Disponibles</option><option value="no">No disponibles</option></select>
+          
+        </div>
+        </form>
+        <!-- EJEMPLO DE MAQUETACIÓN: reemplazar por los datos reales del Backend -->
+        <div class="tabla-wrap">
+        <table class="tabla">
+          <thead><tr><th scope="col">Platillo</th><th scope="col">Descripción</th><th scope="col">Precio</th><th scope="col">Disponibilidad</th><th scope="col">Acciones</th></tr></thead>
+          <tbody>
+          <tr><td data-label="Platillo">Nombre del platillo</td><td data-label="Descripción">Descripción breve</td><td data-label="Precio">L 0.00</td><td data-label="Disponibilidad"><span class="etiqueta etiqueta--ok">Disponible</span></td><td data-label="Acciones"><div class="tabla__acciones"><a class="boton boton--pequeno" href="#modal-platillo">Editar</a><a class="boton boton--pequeno boton--peligro" href="#modal-quitar">Quitar del menú</a></div></td></tr>
+          <tr><td data-label="Platillo">Otro platillo</td><td data-label="Descripción">—</td><td data-label="Precio">L 0.00</td><td data-label="Disponibilidad"><span class="etiqueta etiqueta--muted">No disponible</span></td><td data-label="Acciones"><div class="tabla__acciones"><a class="boton boton--pequeno" href="#modal-platillo">Editar</a></div></td></tr>
+          </tbody>
+        </table>
+      </div>
+      </section>
+      </main>
+    </div>
+  </div>
+
+  <div class="modal-fondo" id="modal-platillo">
+    <div class="modal" role="dialog" aria-modal="true" aria-label="Platillo">
+      <header class="modal__cab"><h2>Platillo</h2><a class="modal__x" href="#cerrar" aria-label="Cerrar">×</a></header>
+      <div class="modal__cuerpo">
+        <form class="formulario" action="#" method="post">
+        <div class="alerta alerta--error is-hidden" role="alert"><span>Mensaje de error</span></div>
+        <div class="field">
+          <label class="field__label" for="p-nombre">Nombre</label>
+          <input id="p-nombre" name="p-nombre" type="text" class="field__input" placeholder="" maxlength="120" />
+          
+        </div>
+        <div class="field">
+          <label class="field__label" for="p-desc">Descripción (opcional)</label>
+          <textarea id="p-desc" name="p-desc" class="field__input"></textarea>
+          
+        </div>
+        <div class="field">
+          <label class="field__label" for="p-precio">Precio</label>
+          <input id="p-precio" name="p-precio" type="number" class="field__input" placeholder="" min="0" step="0.01" />
+          
+        </div>
+        <label class="check"><input type="checkbox" name="p-disp" checked /> Disponible en el menú</label>
+        <div class="acciones-form">
+          <a class="boton" href="#cerrar">Cancelar</a>
+          <button type="submit" class="boton boton--primario">Guardar platillo</button>
+        </div>
+      </form>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal-fondo" id="modal-quitar">
+    <div class="modal" role="dialog" aria-modal="true" aria-label="Quitar del menú">
+      <header class="modal__cab"><h2>Quitar del menú</h2><a class="modal__x" href="#cerrar" aria-label="Cerrar">×</a></header>
+      <div class="modal__cuerpo">
+        <p style="color: var(--text-muted);">¿Marcar “Nombre del platillo” como no disponible? Podrás volver a habilitarlo editando el platillo.</p>
+        <form action="#" method="post">
+        <div class="acciones-form">
+          <a class="boton" href="#cerrar">Volver</a>
+          <button type="submit" class="boton boton--peligro">Quitar del menú</button>
+        </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

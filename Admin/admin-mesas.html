@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mesas · Punto y Sal</title>
+  <link rel="stylesheet" href="../estilos.css" />
+</head>
+<body>
+  <input type="checkbox" id="menu" class="menu-check" aria-hidden="true" tabindex="-1" />
+  <div class="admin">
+    <aside class="sidebar">
+      <div class="marca">Punto y <span>Sal</span><small>Administración</small></div>
+      <nav aria-label="Navegación principal">
+          <a class="nav__link" href="admin-panel.html">Panel</a>
+          <a class="nav__link" href="admin-reservas.html">Reservas</a>
+          <a class="nav__link" href="admin-clientes.html">Clientes</a>
+          <a class="nav__link nav__link--activo" href="admin-mesas.html">Mesas</a>
+          <a class="nav__link" href="admin-platillos.html">Platillos</a>
+      </nav>
+      <div class="sidebar__pie">
+        <span>admin@ejemplo.com</span>
+        <a class="boton boton--pequeno" href="login.html">Cerrar sesión</a>
+      </div>
+    </aside>
+    <label for="menu" class="sidebar-fondo" aria-hidden="true"></label>
+    <div>
+      <header class="admin__top">
+        <label for="menu" class="burger" aria-label="Abrir menú">☰</label>
+        <div class="marca">Punto y <span>Sal</span></div>
+      </header>
+      <main class="contenido">
+      <div class="pagina-cab">
+        <div>
+          <h1>Mesas</h1>
+          <p>Capacidad, ubicación y estado de las mesas del restaurante.</p>
+        </div>
+        <a class="boton boton--primario" href="#modal-mesa">Nueva mesa</a>
+      </div>
+      <section class="tarjeta">
+        <div class="alerta alerta--exito is-hidden" role="status" style="margin-bottom: 14px;"><span>La mesa se registró.</span></div>
+        <form class="filtros" action="#" method="get">
+          <div class="field">
+          <label class="field__label" for="mf-q">Buscar</label>
+          <input id="mf-q" name="mf-q" type="search" class="field__input" placeholder="Número o ubicación"  />
+          
+        </div>
+          <div class="field">
+          <label class="field__label" for="mf-estado">Estado</label>
+          <select id="mf-estado" name="mf-estado" class="field__input"><option value="">Todos</option><option value="disponible">Disponible</option><option value="mantenimiento">Mantenimiento</option></select>
+          
+        </div>
+        </form>
+        <!-- EJEMPLO DE MAQUETACIÓN: reemplazar por los datos reales del Backend -->
+        <div class="tabla-wrap">
+        <table class="tabla">
+          <thead><tr><th scope="col">Mesa</th><th scope="col">Capacidad</th><th scope="col">Ubicación</th><th scope="col">Estado</th><th scope="col">Activa</th><th scope="col">Acciones</th></tr></thead>
+          <tbody>
+          <tr><td data-label="Mesa">Mesa 1</td><td data-label="Capacidad">4</td><td data-label="Ubicación">Terraza</td><td data-label="Estado"><span class="etiqueta etiqueta--ok">Disponible</span></td><td data-label="Activa"><span class="etiqueta etiqueta--ok">Activa</span></td><td data-label="Acciones"><div class="tabla__acciones"><a class="boton boton--pequeno" href="#modal-mesa">Editar</a><a class="boton boton--pequeno boton--peligro" href="#modal-desactivar">Desactivar</a></div></td></tr>
+          <tr><td data-label="Mesa">Mesa 2</td><td data-label="Capacidad">2</td><td data-label="Ubicación">—</td><td data-label="Estado"><span class="etiqueta etiqueta--warn">Mantenimiento</span></td><td data-label="Activa"><span class="etiqueta etiqueta--muted">Inactiva</span></td><td data-label="Acciones"><div class="tabla__acciones"><a class="boton boton--pequeno" href="#modal-mesa">Editar</a></div></td></tr>
+          </tbody>
+        </table>
+      </div>
+      </section>
+      </main>
+    </div>
+  </div>
+
+  <div class="modal-fondo" id="modal-mesa">
+    <div class="modal" role="dialog" aria-modal="true" aria-label="Mesa">
+      <header class="modal__cab"><h2>Mesa</h2><a class="modal__x" href="#cerrar" aria-label="Cerrar">×</a></header>
+      <div class="modal__cuerpo">
+        <form class="formulario" action="#" method="post">
+        <div class="alerta alerta--error is-hidden" role="alert"><span>Mensaje de error</span></div>
+        <div class="campos-fila">
+          <div class="field">
+          <label class="field__label" for="m-num">Número / código</label>
+          <input id="m-num" name="m-num" type="text" class="field__input" placeholder="" maxlength="20" />
+          
+        </div>
+          <div class="field">
+          <label class="field__label" for="m-cap">Capacidad</label>
+          <input id="m-cap" name="m-cap" type="number" class="field__input" placeholder="" min="1" />
+          
+        </div>
+        </div>
+        <div class="campos-fila">
+          <div class="field">
+          <label class="field__label" for="m-ubi">Ubicación (opcional)</label>
+          <input id="m-ubi" name="m-ubi" type="text" class="field__input" placeholder="Terraza, salón…" maxlength="100" />
+          
+        </div>
+          <div class="field">
+          <label class="field__label" for="m-estado">Estado</label>
+          <select id="m-estado" name="m-estado" class="field__input"><option value="disponible">Disponible</option><option value="mantenimiento">Mantenimiento</option></select>
+          
+        </div>
+        </div>
+        <label class="check"><input type="checkbox" name="m-activa" checked /> Mesa activa</label>
+        <div class="acciones-form">
+          <a class="boton" href="#cerrar">Cancelar</a>
+          <button type="submit" class="boton boton--primario">Guardar mesa</button>
+        </div>
+      </form>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal-fondo" id="modal-desactivar">
+    <div class="modal" role="dialog" aria-modal="true" aria-label="Desactivar mesa">
+      <header class="modal__cab"><h2>Desactivar mesa</h2><a class="modal__x" href="#cerrar" aria-label="Cerrar">×</a></header>
+      <div class="modal__cuerpo">
+        <p style="color: var(--text-muted);">¿Desactivar la mesa Mesa 1? Dejará de ofrecerse para nuevas reservas.</p>
+        <form action="#" method="post">
+        <div class="acciones-form">
+          <a class="boton" href="#cerrar">Volver</a>
+          <button type="submit" class="boton boton--peligro">Desactivar</button>
+        </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

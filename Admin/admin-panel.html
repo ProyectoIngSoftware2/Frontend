@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Panel · Punto y Sal</title>
+  <link rel="stylesheet" href="../estilos.css" />
+</head>
+<body>
+  <input type="checkbox" id="menu" class="menu-check" aria-hidden="true" tabindex="-1" />
+  <div class="admin">
+    <aside class="sidebar">
+      <div class="marca">Punto y <span>Sal</span><small>Administración</small></div>
+      <nav aria-label="Navegación principal">
+          <a class="nav__link nav__link--activo" href="admin-panel.html">Panel</a>
+          <a class="nav__link" href="admin-reservas.html">Reservas</a>
+          <a class="nav__link" href="admin-clientes.html">Clientes</a>
+          <a class="nav__link" href="admin-mesas.html">Mesas</a>
+          <a class="nav__link" href="admin-platillos.html">Platillos</a>
+      </nav>
+      <div class="sidebar__pie">
+        <span>admin@ejemplo.com</span>
+        <a class="boton boton--pequeno" href="login.html">Cerrar sesión</a>
+      </div>
+    </aside>
+    <label for="menu" class="sidebar-fondo" aria-hidden="true"></label>
+    <div>
+      <header class="admin__top">
+        <label for="menu" class="burger" aria-label="Abrir menú">☰</label>
+        <div class="marca">Punto y <span>Sal</span></div>
+      </header>
+      <main class="contenido">
+      <div class="pagina-cab">
+        <div>
+          <h1>Panel</h1>
+          <p>Resumen de la operación según los datos registrados.</p>
+        </div>
+        <a class="boton boton--primario" href="admin-reservas.html">Gestionar reservas</a>
+      </div>
+      <!-- EJEMPLO DE MAQUETACIÓN: reemplazar por los datos reales del Backend -->
+      <div class="grid-indicadores">
+        <div class="indicador"><div class="indicador__valor">0</div><div class="indicador__texto">Reservas pendientes</div></div>
+        <div class="indicador"><div class="indicador__valor">0</div><div class="indicador__texto">Reservas aprobadas</div></div>
+        <div class="indicador"><div class="indicador__valor">0</div><div class="indicador__texto">Reservas confirmadas</div></div>
+        <div class="indicador"><div class="indicador__valor">0</div><div class="indicador__texto">Reservas en total</div></div>
+        <div class="indicador"><div class="indicador__valor">0</div><div class="indicador__texto">Clientes activos</div></div>
+        <div class="indicador"><div class="indicador__valor">0</div><div class="indicador__texto">Mesas disponibles</div></div>
+        <div class="indicador"><div class="indicador__valor">0</div><div class="indicador__texto">Platillos disponibles</div></div>
+      </div>
+
+      <section class="tarjeta">
+        <h2>Próximas reservas</h2>
+        <div class="tabla-wrap">
+        <table class="tabla">
+          <thead><tr><th scope="col">Código</th><th scope="col">Cliente</th><th scope="col">Fecha y hora</th><th scope="col">Personas</th><th scope="col">Estado</th></tr></thead>
+          <tbody>
+          <tr><td data-label="Código"><a class="codigo" href="admin-detalle-reserva.html">RES-XXXX-XXXX</a></td><td data-label="Cliente">Nombre Apellido</td><td data-label="Fecha y hora">dd/mm/aaaa hh:mm</td><td data-label="Personas">2</td><td data-label="Estado"><span class="etiqueta etiqueta--warn">Pendiente</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+        <!-- Sin reservas próximas: <div class="estado">No hay reservas próximas.</div> -->
+      </section>
+      </main>
+    </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Reservas · Punto y Sal</title>
+  <link rel="stylesheet" href="../estilos.css" />
+</head>
+<body>
+  <input type="checkbox" id="menu" class="menu-check" aria-hidden="true" tabindex="-1" />
+  <div class="admin">
+    <aside class="sidebar">
+      <div class="marca">Punto y <span>Sal</span><small>Administración</small></div>
+      <nav aria-label="Navegación principal">
+          <a class="nav__link" href="admin-panel.html">Panel</a>
+          <a class="nav__link nav__link--activo" href="admin-reservas.html">Reservas</a>
+          <a class="nav__link" href="admin-clientes.html">Clientes</a>
+          <a class="nav__link" href="admin-mesas.html">Mesas</a>
+          <a class="nav__link" href="admin-platillos.html">Platillos</a>
+      </nav>
+      <div class="sidebar__pie">
+        <span>admin@ejemplo.com</span>
+        <a class="boton boton--pequeno" href="login.html">Cerrar sesión</a>
+      </div>
+    </aside>
+    <label for="menu" class="sidebar-fondo" aria-hidden="true"></label>
+    <div>
+      <header class="admin__top">
+        <label for="menu" class="burger" aria-label="Abrir menú">☰</label>
+        <div class="marca">Punto y <span>Sal</span></div>
+      </header>
+      <main class="contenido">
+      <div class="pagina-cab">
+        <div>
+          <h1>Reservas</h1>
+          <p>Consulta, aprueba, confirma, rechaza, modifica o cancela reservas.</p>
+        </div>
+        <a class="boton boton--primario" href="#modal-nueva">Nueva reserva</a>
+      </div>
+      <section class="tarjeta">
+        <form class="filtros" action="#" method="get">
+          <div class="field">
+          <label class="field__label" for="f-q">Buscar</label>
+          <input id="f-q" name="f-q" type="search" class="field__input" placeholder="Código, cliente o correo"  />
+          
+        </div>
+          <div class="field">
+          <label class="field__label" for="f-estado">Estado</label>
+          <select id="f-estado" name="f-estado" class="field__input"><option value="">Todos</option><option value="pendiente">Pendiente</option><option value="aprobada">Aprobada</option><option value="confirmada">Confirmada</option><option value="rechazada">Rechazada</option><option value="cancelada">Cancelada</option><option value="completada">Completada</option></select>
+          
+        </div>
+          <div class="field">
+          <label class="field__label" for="f-desde">Desde</label>
+          <input id="f-desde" name="f-desde" type="date" class="field__input" placeholder=""  />
+          
+        </div>
+          <div class="field">
+          <label class="field__label" for="f-hasta">Hasta</label>
+          <input id="f-hasta" name="f-hasta" type="date" class="field__input" placeholder=""  />
+          
+        </div>
+        </form>
+        <!-- EJEMPLO DE MAQUETACIÓN: reemplazar por los datos reales del Backend -->
+        <div class="tabla-wrap">
+        <table class="tabla">
+          <thead><tr><th scope="col">Código</th><th scope="col">Cliente</th><th scope="col">Mesa</th><th scope="col">Fecha y hora</th><th scope="col">Personas</th><th scope="col">Estado</th><th scope="col">Acciones</th></tr></thead>
+          <tbody>
+          <tr><td data-label="Código"><a class="codigo" href="admin-detalle-reserva.html">RES-XXXX-XXXX</a></td><td data-label="Cliente">Nombre Apellido</td><td data-label="Mesa">Mesa 1</td><td data-label="Fecha y hora">dd/mm/aaaa hh:mm</td><td data-label="Personas">2</td><td data-label="Estado"><span class="etiqueta etiqueta--warn">Pendiente</span></td><td data-label="Acciones"><div class="tabla__acciones"><a class="boton boton--pequeno" href="admin-detalle-reserva.html">Ver detalle</a></div></td></tr>
+          <tr><td data-label="Código"><a class="codigo" href="admin-detalle-reserva.html">RES-YYYY-YYYY</a></td><td data-label="Cliente">Otro Cliente</td><td data-label="Mesa">Sin asignar</td><td data-label="Fecha y hora">dd/mm/aaaa hh:mm</td><td data-label="Personas">4</td><td data-label="Estado"><span class="etiqueta etiqueta--ok">Confirmada</span></td><td data-label="Acciones"><div class="tabla__acciones"><a class="boton boton--pequeno" href="admin-detalle-reserva.html">Ver detalle</a></div></td></tr>
+          </tbody>
+        </table>
+      </div>
+        <!-- Sin resultados: <div class="estado">Ninguna reserva coincide con los filtros.</div> -->
+      </section>
+      </main>
+    </div>
+  </div>
+
+  <div class="modal-fondo" id="modal-nueva">
+    <div class="modal" role="dialog" aria-modal="true" aria-label="Nueva reserva">
+      <header class="modal__cab"><h2>Nueva reserva</h2><a class="modal__x" href="#cerrar" aria-label="Cerrar">×</a></header>
+      <div class="modal__cuerpo">
+        <form class="formulario" action="admin-detalle-reserva.html" method="post">
+        <!-- Mensaje de error general (mostrar cuando el Backend rechace la solicitud) -->
+        <div class="alerta alerta--error is-hidden" role="alert"><span>Mensaje de error</span></div>
+        <div class="field">
+          <label class="field__label" for="res-cliente">Cliente</label>
+          <select id="res-cliente" name="res-cliente" class="field__input"><option value="">Selecciona un cliente…</option><option value="1">Nombre Apellido — correo@ejemplo.com</option></select>
+          
+        </div>
+        <div class="campos-fila">
+          <div class="field">
+          <label class="field__label" for="res-fecha">Fecha y hora</label>
+          <input id="res-fecha" name="res-fecha" type="datetime-local" class="field__input" placeholder=""  />
+          
+        </div>
+          <div class="field">
+          <label class="field__label" for="res-personas">Cantidad de personas</label>
+          <input id="res-personas" name="res-personas" type="number" class="field__input" placeholder="" min="1" value="2" />
+          
+        </div>
+        </div>
+        <div class="campos-fila">
+          <div class="field">
+          <label class="field__label" for="res-duracion">Duración (minutos)</label>
+          <input id="res-duracion" name="res-duracion" type="number" class="field__input" placeholder="" min="15" max="720" value="120" />
+          <small class="field__help">Entre 15 y 720.</small>
+        </div>
+          <div class="field">
+          <label class="field__label" for="res-mesa">Mesa (opcional)</label>
+          <select id="res-mesa" name="res-mesa" class="field__input"><option value="">Sin mesa por ahora</option><option value="1">Mesa 1 · Terraza · capacidad 4</option></select>
+          <small class="field__help">El Backend valida la disponibilidad al registrar la reserva.</small>
+        </div>
+        </div>
+        <div class="field">
+          <label class="field__label" for="res-obs">Observaciones (opcional)</label>
+          <textarea id="res-obs" name="res-obs" class="field__input" maxlength="1000"></textarea>
+          
+        </div>
+        <div class="field">
+          <span class="field__label">Platillos anticipados (opcional)</span>
+          <div class="lista-platillos">
+            <!-- EJEMPLO DE MAQUETACIÓN: reemplazar por los datos reales del Backend -->
+            <div class="linea-platillo">
+              <label for="pl-1">Nombre del platillo<small>L 0.00</small></label>
+              <input id="pl-1" name="pl-1" type="number" min="0" value="0" class="field__input" aria-label="Cantidad de Nombre del platillo" />
+            </div>
+            <div class="linea-platillo">
+              <label for="pl-2">Otro platillo<small>L 0.00</small></label>
+              <input id="pl-2" name="pl-2" type="number" min="0" value="0" class="field__input" aria-label="Cantidad de Otro platillo" />
+            </div>
+          </div>
+        </div>
+        <div class="acciones-form">
+          <a class="boton" href="admin-reservas.html">Cancelar</a>
+          <button type="submit" class="boton boton--primario">Solicitar reserva</button>
+        </div>
+      </form>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
