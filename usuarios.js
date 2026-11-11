@@ -1,4 +1,5 @@
 // ===== Usuarios y Roles — Punto y Sal =====
+API.requerirRol('administrador');
 const API_BASE = 'http://localhost:8000';
 
 const token = localStorage.getItem('token');
