@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Usuarios y Roles | Punto y Sal</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <nav class="navbar">
+    <div class="navbar__brand">Punto y Sal</div>
+    <div class="navbar__user" id="userInfo"></div>
+    <div class="navbar__actions">
+      <button class="btn btn--danger" id="logoutBtn">Cerrar sesión</button>
+    </div>
+  </nav>
+
+  <div class="card">
+    <div class="card__header">
+      <div>
+        <h2 class="card__title">Gestión de Usuarios y Roles</h2>
+        <p class="card__title">Solo administrador</p>
+      </div>
+    </div>
+
+    <div id="errorMsg" class="error hidden"></div>
+    <div id="successMsg" class="success hidden"></div>
+
+    <!-- Formulario crear/editar usuario -->
+    <h3 style="margin: 24px 0 12px; color: var(--text);">Nuevo usuario</h3>
+    <form id="usuarioForm" style="display: grid; grid-template-columns: 1fr 1fr 1fr auto; gap: 12px; align-items: end;">
+      <div class="field">
+        <label class="field__label" for="nombre">Nombre completo</label>
+        <input type="text" id="nombre" class="field__input" placeholder="Nombre completo" required>
+      </div>
+      <div class="field">
+        <label class="field__label" for="correo">Correo</label>
+        <input type="email" id="correo" class="field__input" placeholder="correo@ejemplo.com" required>
+      </div>
+      <div class="field">
+        <label class="field__label" for="rolForm">Rol</label>
+        <select id="rolForm" class="field__input" required>
+          <option value="administrador">Administrador</option>
+          <option value="cliente">Cliente</option>
+        </select>
+      </div>
+      <div class="field">
+        <label class="field__label" for="password">Contraseña</label>
+        <input type="password" id="password" class="field__input" placeholder="Mínimo 8 caracteres" required minlength="8">
+      </div>
+      <button type="submit" class="btn btn--primary" id="submitBtn">Crear</button>
+      <button type="button" class="btn btn--secondary" id="cancelBtn" style="display:none;">Cancelar</button>
+    </form>
+
+    <input type="hidden" id="editId">
+
+    <!-- Lista de usuarios -->
+    <h3 style="margin: 32px 0 12px; color: var(--text);">Usuarios registrados</h3>
+    <table id="usuariosTable">
+      <thead>
+        <tr>
+          <th>ID</th><th>Correo</th><th>Rol</th><th>Estado</th><th>Creado</th><th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody id="usuariosTbody"></tbody>
+    </table>
+  </div>
+
+  <script src="usuarios.js"></script>
+</body>
+</html>
