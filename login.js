@@ -1,7 +1,7 @@
 // ===== Configuración =====
 // Ajusta estos valores según lo que espere el backend (revísalo en http://localhost:8000/docs)
 const CONFIG = {
-  API_URL: 'http://localhost:8000/api/v1/auth/login',
+  API_URL: 'http://localhost:8004/api/v1/auth/login',
   CAMPO_USUARIO: 'correo',      // el backend (LoginRequest) espera 'correo'
   CAMPO_PASSWORD: 'password',   // nombre del campo de contraseña que espera el backend
   RUTAS_POR_ROL: {
