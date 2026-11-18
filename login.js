@@ -1,24 +1,24 @@
-// ===== Configuración =====
-// Ajusta estos valores según lo que espere el backend (revísalo en http://localhost:8000/docs)
-const CONFIG = {
-  API_URL: 'http://localhost:8000/api/v1/auth/login',
-  CAMPO_USUARIO: 'correo',      // el backend (LoginRequest) espera 'correo'
-  CAMPO_PASSWORD: 'password',   // nombre del campo de contraseña que espera el backend
-  RUTAS_POR_ROL: {
-    administrador: 'admin.html',
-    cliente: 'cliente.html',
-  },
-};
+// =====================================================================
+// login.js | Inicio de sesión contra POST /api/v1/auth/login
+// Requiere js/api.js (cargado antes en login.html).
+// =====================================================================
 
-// ===== Elementos =====
+// Si ya hay una sesión vigente, ir directo a la pantalla del rol.
+if (API.sesionVigente()) {
+  window.location.replace(API.INICIO_POR_ROL[API.sesion().rol]);
+}
+
 const form = document.querySelector('.login__form');
-const inputUsuario = document.getElementById('correo');
+const inputCorreo = document.getElementById('correo');
 const inputPassword = document.getElementById('password');
 const toggle = document.getElementById('togglePassword');
 const errorBox = document.querySelector('.login__error');
 const boton = document.querySelector('.btn--primary');
 
-// ===== Mostrar / ocultar contraseña =====
+// Avisos al volver al login (sesión vencida, cuenta recién creada…)
+const motivo = API.parametro('motivo');
+if (motivo === 'expirada') mostrarError('Tu sesión expiró. Inicia sesión de nuevo.');
+
 toggle.addEventListener('click', () => {
   const visible = inputPassword.type === 'text';
   inputPassword.type = visible ? 'password' : 'text';
@@ -26,7 +26,6 @@ toggle.addEventListener('click', () => {
   toggle.setAttribute('aria-label', visible ? 'Mostrar contraseña' : 'Ocultar contraseña');
 });
 
-// ===== Utilidades de interfaz =====
 function mostrarError(mensaje) {
   errorBox.textContent = mensaje;
   errorBox.classList.remove('is-hidden');
@@ -34,7 +33,7 @@ function mostrarError(mensaje) {
 
 function ocultarError() {
   errorBox.classList.add('is-hidden');
-  inputUsuario.classList.remove('is-invalid');
+  inputCorreo.classList.remove('is-invalid');
   inputPassword.classList.remove('is-invalid');
 }
 
@@ -43,83 +42,44 @@ function setCargando(cargando) {
   boton.textContent = cargando ? 'Ingresando...' : 'Iniciar sesión';
 }
 
-// Lee el contenido de un JWT (sin verificarlo; eso lo hace el backend)
-function leerToken(token) {
-  try {
-    const payload = token.split('.')[1].replace(/-/g, '+').replace(/_/g, '/');
-    return JSON.parse(atob(payload));
-  } catch {
-    return {};
-  }
-}
-
-// Quita el error rojo del campo en cuanto la persona escribe
-[inputUsuario, inputPassword].forEach((input) =>
+[inputCorreo, inputPassword].forEach((input) =>
   input.addEventListener('input', () => input.classList.remove('is-invalid'))
 );
 
-// ===== Envío del formulario =====
 form.addEventListener('submit', async (e) => {
   e.preventDefault();
   ocultarError();
 
-  const usuario = inputUsuario.value.trim();
+  const correo = inputCorreo.value.trim();
   const password = inputPassword.value;
 
-  // Validación de campos vacíos
-  if (!usuario || !password) {
-    if (!usuario) inputUsuario.classList.add('is-invalid');
+  if (!correo || !password) {
+    if (!correo) inputCorreo.classList.add('is-invalid');
     if (!password) inputPassword.classList.add('is-invalid');
     mostrarError('Completa correo y contraseña.');
     return;
   }
 
   setCargando(true);
-
   try {
-    const respuesta = await fetch(CONFIG.API_URL, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        [CONFIG.CAMPO_USUARIO]: usuario,
-        [CONFIG.CAMPO_PASSWORD]: password,
-      }),
-    });
+    const datos = await API.post('/api/v1/auth/login', { correo, password }, { publica: true });
 
-    const datos = await respuesta.json().catch(() => ({}));
-
-    if (respuesta.ok) {
-      const token = datos.access_token || datos.token;
-      if (!token) {
-        mostrarError('Respuesta inesperada del servidor.');
-        return;
-      }
-
-      const contenido = leerToken(token);
-      const rol = datos.role || contenido.role;
-
-      localStorage.setItem('token', token);
-      localStorage.setItem('rol', rol || '');
-
-      const destino = CONFIG.RUTAS_POR_ROL[rol];
-      if (destino) {
-        window.location.href = destino;
-      } else {
-        mostrarError('Tu usuario no tiene un rol válido.');
-      }
+    // El backend responde { access_token, rol, correo, id_usuario, id_cliente, ... }
+    const destino = API.INICIO_POR_ROL[datos && datos.rol];
+    if (!datos || !datos.access_token || !destino) {
+      mostrarError('Tu usuario no tiene un rol válido.');
       return;
     }
-
-    if (respuesta.status === 401 || respuesta.status === 400 || respuesta.status === 422) {
+    API.guardarSesion(datos);
+    window.location.href = destino;
+  } catch (err) {
+    if (err.status === 401 || err.status === 422) {
+      inputCorreo.classList.add('is-invalid');
+      inputPassword.classList.add('is-invalid');
       mostrarError('Correo o contraseña incorrectos.');
-    } else if (respuesta.status === 503 || respuesta.status === 504) {
-      mostrarError('El servicio no está disponible. Intenta más tarde.');
     } else {
-      mostrarError('Ocurrió un error. Intenta de nuevo.');
+      mostrarError(err.message);
     }
-  } catch {
-    // El servidor no respondió o el navegador bloqueó la petición (CORS)
-    mostrarError('No se pudo conectar con el servidor.');
   } finally {
     setCargando(false);
   }

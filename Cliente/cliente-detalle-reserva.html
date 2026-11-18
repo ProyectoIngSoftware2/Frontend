@@ -21,7 +21,7 @@
     </nav>
     <div class="topbar__der">
       <span class="topbar__correo">cliente@ejemplo.com</span>
-      <a class="boton boton--pequeno" href="login.html">Cerrar sesión</a>
+      <a class="boton boton--pequeno" href="../login.html" data-cerrar-sesion>Cerrar sesión</a>
     </div>
   </header>
   <main class="contenido">
@@ -39,8 +39,7 @@
 
         <section class="tarjeta">
           <h2>Información</h2>
-          <!-- EJEMPLO DE MAQUETACIÓN: reemplazar por los datos reales del Backend -->
-          <dl class="detalle-grid">
+                    <dl class="detalle-grid" id="info">
             
             <div class="dato"><dt>Fecha y hora</dt><dd>dd/mm/aaaa hh:mm</dd></div>
             <div class="dato"><dt>Duración</dt><dd>120 min</dd></div>
@@ -57,12 +56,11 @@
           <div class="tabla-wrap">
         <table class="tabla">
           <thead><tr><th scope="col">Platillo</th><th scope="col">Cantidad</th><th scope="col">Precio unitario</th><th scope="col">Observaciones</th></tr></thead>
-          <tbody>
-          <tr><td data-label="Platillo">Nombre del platillo</td><td data-label="Cantidad">1</td><td data-label="Precio unitario">L 0.00</td><td data-label="Observaciones">—</td></tr>
+          <tbody id="tb-platillos">
           </tbody>
         </table>
       </div>
-          <p style="margin-top: 12px; text-align: right; font-weight: 700;">Total: L 0.00</p>
+          <p id="total" style="margin-top: 12px; text-align: right; font-weight: 700;">Total: L 0.00</p>
           <!-- Sin platillos: <div class="estado">Esta reserva no incluye platillos.</div> -->
         </section>
 
@@ -71,8 +69,7 @@
           <div class="tabla-wrap">
         <table class="tabla">
           <thead><tr><th scope="col">Fecha</th><th scope="col">De</th><th scope="col">A</th><th scope="col">Comentario</th></tr></thead>
-          <tbody>
-          <tr><td data-label="Fecha">dd/mm/aaaa hh:mm</td><td data-label="De">—</td><td data-label="A"><span class="etiqueta etiqueta--warn">Pendiente</span></td><td data-label="Comentario">—</td></tr>
+          <tbody id="tb-historial">
           </tbody>
         </table>
       </div>
@@ -133,5 +130,9 @@
       </div>
     </div>
   </div>
+  <script src="../js/api.js"></script>
+  <script src="../js/mis-reservas.js"></script>
+  <script src="../js/reservas-comun.js"></script>
+  <script src="../js/cliente-detalle-reserva.js"></script>
 </body>
 </html>

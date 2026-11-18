@@ -144,6 +144,25 @@ body {
 }
 .is-hidden { display: none; }
 
+/* ===== Enlace alterno (crear cuenta / iniciar sesión) ===== */
+.login__alt {
+  margin-top: 18px;
+  text-align: center;
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+.login__alt a { color: var(--accent); font-weight: 600; text-decoration: none; }
+.login__alt a:hover { text-decoration: underline; }
+.login__ok {
+  padding: 10px 12px;
+  font-size: 0.85rem;
+  color: #d9f2db;
+  background: rgba(67, 160, 71, 0.15);
+  border-left: 3px solid #43a047;
+  border-radius: 6px;
+}
+.field__help { font-size: 0.75rem; color: var(--text-muted); }
+
 /* ===== Footer ===== */
 .login__footer {
   margin-top: 28px;

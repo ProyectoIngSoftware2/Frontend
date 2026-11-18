@@ -21,7 +21,7 @@
     </nav>
     <div class="topbar__der">
       <span class="topbar__correo">cliente@ejemplo.com</span>
-      <a class="boton boton--pequeno" href="login.html">Cerrar sesión</a>
+      <a class="boton boton--pequeno" href="../login.html" data-cerrar-sesion>Cerrar sesión</a>
     </div>
   </header>
   <main class="contenido">
@@ -68,8 +68,7 @@
         <div class="field">
           <span class="field__label">Platillos anticipados (opcional)</span>
           <div class="lista-platillos">
-            <!-- EJEMPLO DE MAQUETACIÓN: reemplazar por los datos reales del Backend -->
-            <div class="linea-platillo">
+                        <div class="linea-platillo">
               <label for="pl-1">Nombre del platillo<small>L 0.00</small></label>
               <input id="pl-1" name="pl-1" type="number" min="0" value="0" class="field__input" aria-label="Cantidad de Nombre del platillo" />
             </div>
@@ -86,5 +85,9 @@
       </form>
       </section>
   </main>
+  <script src="../js/api.js"></script>
+  <script src="../js/mis-reservas.js"></script>
+  <script src="../js/reservas-comun.js"></script>
+  <script src="../js/cliente-nueva-reserva.js"></script>
 </body>
 </html>

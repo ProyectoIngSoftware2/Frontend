@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Menú · Punto y Sal</title>
+  <link rel="stylesheet" href="../estilos.css" />
+  <link rel="stylesheet" href="cliente.css" />
+</head>
+<body>
+  <input type="checkbox" id="menu" class="menu-check" aria-hidden="true" tabindex="-1" />
+  <header class="topbar">
+    <div class="marca">Punto y <span>Sal</span></div>
+    <label for="menu" class="burger" aria-label="Abrir o cerrar menú">☰</label>
+    <nav aria-label="Navegación principal">
+          <a class="nav__link" href="cliente-inicio.html">Inicio</a>
+          <a class="nav__link" href="cliente-nueva-reserva.html">Nueva reserva</a>
+          <a class="nav__link" href="cliente-consultar.html">Consultar reserva</a>
+          <a class="nav__link nav__link--activo" href="menu.html">Menú</a>
+          <a class="nav__link" href="cliente-perfil.html">Mi perfil</a>
+    </nav>
+    <div class="topbar__der">
+      <span class="topbar__correo">cliente@ejemplo.com</span>
+      <a class="boton boton--pequeno" href="../login.html" data-cerrar-sesion>Cerrar sesión</a>
+    </div>
+  </header>
+  <main class="contenido contenido--cliente-inicio">
+      <div class="pagina-cab">
+        <div>
+          <h1>Menú</h1>
+          <p>Platillos disponibles. Puedes pedirlos por anticipado al hacer tu reserva.</p>
+        </div>
+        <a class="boton boton--primario" href="cliente-nueva-reserva.html">Reservar</a>
+      </div>
+      <div class="grid-platillos" id="grid-menu"></div>
+  </main>
+  <script src="../js/api.js"></script>
+  <script src="../js/cliente-menu.js"></script>
+</body>
+</html>

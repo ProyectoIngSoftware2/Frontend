@@ -20,7 +20,7 @@
       </nav>
       <div class="sidebar__pie">
         <span>admin@ejemplo.com</span>
-        <a class="boton boton--pequeno" href="login.html">Cerrar sesión</a>
+        <a class="boton boton--pequeno" href="../login.html" data-cerrar-sesion>Cerrar sesión</a>
       </div>
     </aside>
     <label for="menu" class="sidebar-fondo" aria-hidden="true"></label>
@@ -51,13 +51,10 @@
           
         </div>
         </form>
-        <!-- EJEMPLO DE MAQUETACIÓN: reemplazar por los datos reales del Backend -->
-        <div class="tabla-wrap">
+                <div class="tabla-wrap">
         <table class="tabla">
           <thead><tr><th scope="col">Nombre</th><th scope="col">Correo</th><th scope="col">Teléfono</th><th scope="col">Identidad</th><th scope="col">Registro</th><th scope="col">Estado</th><th scope="col">Acciones</th></tr></thead>
-          <tbody>
-          <tr><td data-label="Nombre">Nombre Apellido</td><td data-label="Correo">correo@ejemplo.com</td><td data-label="Teléfono">0000-0000</td><td data-label="Identidad">—</td><td data-label="Registro">dd/mm/aaaa</td><td data-label="Estado"><span class="etiqueta etiqueta--ok">Activo</span></td><td data-label="Acciones"><div class="tabla__acciones"><a class="boton boton--pequeno" href="#modal-editar">Editar</a><a class="boton boton--pequeno boton--peligro" href="#modal-desactivar">Desactivar</a></div></td></tr>
-          <tr><td data-label="Nombre">Otro Cliente</td><td data-label="Correo">otro@ejemplo.com</td><td data-label="Teléfono">0000-0000</td><td data-label="Identidad">—</td><td data-label="Registro">dd/mm/aaaa</td><td data-label="Estado"><span class="etiqueta etiqueta--muted">Inactivo</span></td><td data-label="Acciones"><div class="tabla__acciones"><a class="boton boton--pequeno" href="#modal-editar">Editar</a></div></td></tr>
+          <tbody id="tb-clientes">
           </tbody>
         </table>
       </div>
@@ -117,5 +114,7 @@
       </div>
     </div>
   </div>
+  <script src="../js/api.js"></script>
+  <script src="../js/admin-clientes.js"></script>
 </body>
 </html>

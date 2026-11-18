@@ -20,7 +20,7 @@
       </nav>
       <div class="sidebar__pie">
         <span>admin@ejemplo.com</span>
-        <a class="boton boton--pequeno" href="login.html">Cerrar sesión</a>
+        <a class="boton boton--pequeno" href="../login.html" data-cerrar-sesion>Cerrar sesión</a>
       </div>
     </aside>
     <label for="menu" class="sidebar-fondo" aria-hidden="true"></label>
@@ -37,8 +37,7 @@
         </div>
         <a class="boton boton--primario" href="admin-reservas.html">Gestionar reservas</a>
       </div>
-      <!-- EJEMPLO DE MAQUETACIÓN: reemplazar por los datos reales del Backend -->
-      <div class="grid-indicadores">
+            <div class="grid-indicadores">
         <div class="indicador"><div class="indicador__valor">0</div><div class="indicador__texto">Reservas pendientes</div></div>
         <div class="indicador"><div class="indicador__valor">0</div><div class="indicador__texto">Reservas aprobadas</div></div>
         <div class="indicador"><div class="indicador__valor">0</div><div class="indicador__texto">Reservas confirmadas</div></div>
@@ -53,8 +52,7 @@
         <div class="tabla-wrap">
         <table class="tabla">
           <thead><tr><th scope="col">Código</th><th scope="col">Cliente</th><th scope="col">Fecha y hora</th><th scope="col">Personas</th><th scope="col">Estado</th></tr></thead>
-          <tbody>
-          <tr><td data-label="Código"><a class="codigo" href="admin-detalle-reserva.html">RES-XXXX-XXXX</a></td><td data-label="Cliente">Nombre Apellido</td><td data-label="Fecha y hora">dd/mm/aaaa hh:mm</td><td data-label="Personas">2</td><td data-label="Estado"><span class="etiqueta etiqueta--warn">Pendiente</span></td></tr>
+          <tbody id="tb-proximas">
           </tbody>
         </table>
       </div>
@@ -63,5 +61,7 @@
       </main>
     </div>
   </div>
+  <script src="../js/api.js"></script>
+  <script src="../js/admin-panel.js"></script>
 </body>
 </html>

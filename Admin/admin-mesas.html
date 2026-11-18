@@ -20,7 +20,7 @@
       </nav>
       <div class="sidebar__pie">
         <span>admin@ejemplo.com</span>
-        <a class="boton boton--pequeno" href="login.html">Cerrar sesión</a>
+        <a class="boton boton--pequeno" href="../login.html" data-cerrar-sesion>Cerrar sesión</a>
       </div>
     </aside>
     <label for="menu" class="sidebar-fondo" aria-hidden="true"></label>
@@ -51,13 +51,10 @@
           
         </div>
         </form>
-        <!-- EJEMPLO DE MAQUETACIÓN: reemplazar por los datos reales del Backend -->
-        <div class="tabla-wrap">
+                <div class="tabla-wrap">
         <table class="tabla">
           <thead><tr><th scope="col">Mesa</th><th scope="col">Capacidad</th><th scope="col">Ubicación</th><th scope="col">Estado</th><th scope="col">Activa</th><th scope="col">Acciones</th></tr></thead>
-          <tbody>
-          <tr><td data-label="Mesa">Mesa 1</td><td data-label="Capacidad">4</td><td data-label="Ubicación">Terraza</td><td data-label="Estado"><span class="etiqueta etiqueta--ok">Disponible</span></td><td data-label="Activa"><span class="etiqueta etiqueta--ok">Activa</span></td><td data-label="Acciones"><div class="tabla__acciones"><a class="boton boton--pequeno" href="#modal-mesa">Editar</a><a class="boton boton--pequeno boton--peligro" href="#modal-desactivar">Desactivar</a></div></td></tr>
-          <tr><td data-label="Mesa">Mesa 2</td><td data-label="Capacidad">2</td><td data-label="Ubicación">—</td><td data-label="Estado"><span class="etiqueta etiqueta--warn">Mantenimiento</span></td><td data-label="Activa"><span class="etiqueta etiqueta--muted">Inactiva</span></td><td data-label="Acciones"><div class="tabla__acciones"><a class="boton boton--pequeno" href="#modal-mesa">Editar</a></div></td></tr>
+          <tbody id="tb-mesas">
           </tbody>
         </table>
       </div>
@@ -120,5 +117,8 @@
       </div>
     </div>
   </div>
+  <script src="../js/api.js"></script>
+  <script src="../js/reservas-comun.js"></script>
+  <script src="../js/admin-mesas.js"></script>
 </body>
 </html>

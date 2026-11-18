@@ -20,7 +20,7 @@
       </nav>
       <div class="sidebar__pie">
         <span>admin@ejemplo.com</span>
-        <a class="boton boton--pequeno" href="login.html">Cerrar sesión</a>
+        <a class="boton boton--pequeno" href="../login.html" data-cerrar-sesion>Cerrar sesión</a>
       </div>
     </aside>
     <label for="menu" class="sidebar-fondo" aria-hidden="true"></label>
@@ -51,13 +51,10 @@
           
         </div>
         </form>
-        <!-- EJEMPLO DE MAQUETACIÓN: reemplazar por los datos reales del Backend -->
-        <div class="tabla-wrap">
+                <div class="tabla-wrap">
         <table class="tabla">
           <thead><tr><th scope="col">Platillo</th><th scope="col">Descripción</th><th scope="col">Precio</th><th scope="col">Disponibilidad</th><th scope="col">Acciones</th></tr></thead>
-          <tbody>
-          <tr><td data-label="Platillo">Nombre del platillo</td><td data-label="Descripción">Descripción breve</td><td data-label="Precio">L 0.00</td><td data-label="Disponibilidad"><span class="etiqueta etiqueta--ok">Disponible</span></td><td data-label="Acciones"><div class="tabla__acciones"><a class="boton boton--pequeno" href="#modal-platillo">Editar</a><a class="boton boton--pequeno boton--peligro" href="#modal-quitar">Quitar del menú</a></div></td></tr>
-          <tr><td data-label="Platillo">Otro platillo</td><td data-label="Descripción">—</td><td data-label="Precio">L 0.00</td><td data-label="Disponibilidad"><span class="etiqueta etiqueta--muted">No disponible</span></td><td data-label="Acciones"><div class="tabla__acciones"><a class="boton boton--pequeno" href="#modal-platillo">Editar</a></div></td></tr>
+          <tbody id="tb-platillos">
           </tbody>
         </table>
       </div>
@@ -111,5 +108,8 @@
       </div>
     </div>
   </div>
+  <script src="../js/api.js"></script>
+  <script src="../js/reservas-comun.js"></script>
+  <script src="../js/admin-platillos.js"></script>
 </body>
 </html>
